@@ -1,325 +1,220 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-// ==========================================
-// 1. BASE DE DATOS DE NIVELES (JSON)
-// ==========================================
-const NIVELES = [
-  {
-    id: 1,
-    filas: 6,
-    columnas: 6,
-    grid: [
-      [{ num: 1, char: "P" }, { num: 2, char: "A" }, { num: 3, char: "N" }, null, { num: 4, char: "S" }, { num: 5, char: "O" }],
-      [{ char: "E" }, null, { char: "U" }, null, { char: "A" }, null],
-      [{ num: 6, char: "R" }, { char: "O" }, { char: "S" }, { char: "A" }, { char: "L" }, null],
-      [{ char: "R" }, null, { char: "E" }, null, null, null],
-      [{ num: 7, char: "O" }, { char: "S" }, { char: "O" }, null, { num: 8, char: "L" }, { char: "A" }],
-      [null, null, null, null, null, null]
-    ],
-    pistas: {
-      horizontales: [
-        { num: 1, texto: "Alimento horneado a base de harina (3)" },
-        { num: 4, texto: "Prefijo que significa 'sobre' (2)" },
-        { num: 6, texto: "Planta que da rosas (5)" },
-        { num: 7, texto: "Animal plantígrado que hiberna (3)" },
-        { num: 8, texto: "Artículo femenino plural (2)" }
-      ],
-      verticales: [
-        { num: 1, texto: "Mejor amigo del hombre (5)" },
-        { num: 3, texto: "Que pertenece a nosotros (5)" },
-        { num: 4, texto: "Cloruro de sodio (3)" }
+export default function MastergramaDiario() {
+  const [tablero, setTablero] = useState(null);
+  const [respuestas, setRespuestas] = useState({});
+
+  useEffect(() => {
+    // Reconstrucción de la cuadrícula basada en el PDF y Story XMLs
+    const datosProcesados = {
+      columnas: 15,
+      filas: 18,
+      fecha: "MIÉRCOLES 25 MARZO 2026",
+      seccion: "PASATIEMPOS - PÁG 24",
+      celdas: [
+        // --- SECCIÓN SUPERIOR IZQUIERDA ---
+        { r: 0, c: 0, tipo: "pista", txt: "INSTRUMENTO DE FLORENCIO CORONADO", dir: "v" },
+        { r: 0, c: 1, tipo: "pista", txt: "AL MÁXIMO, A REBOSAR", dir: "h" },
+        { r: 0, c: 2, tipo: "letra", solucion: "L" },
+        { r: 0, c: 3, tipo: "letra", solucion: "L" },
+        { r: 0, c: 4, tipo: "letra", solucion: "E" },
+        { r: 0, c: 5, tipo: "letra", solucion: "N" },
+        { r: 0, c: 6, tipo: "letra", solucion: "O" },
+        { r: 0, c: 7, tipo: "bloque" },
+        { r: 0, c: 8, tipo: "pista", txt: "CUNA DE ABRAHAM", dir: "v" },
+        { r: 0, c: 9, tipo: "letra", solucion: "U" },
+        { r: 0, c: 10, tipo: "letra", solucion: "R" },
+
+        { r: 1, c: 0, tipo: "letra", solucion: "A" },
+        { r: 1, c: 1, tipo: "pista", txt: "LETRAS ORDEN REGRESIVO", dir: "h" },
+        { r: 1, c: 2, tipo: "letra", solucion: "Z" },
+        { r: 1, c: 3, tipo: "letra", solucion: "Y" },
+        { r: 1, c: 4, tipo: "letra", solucion: "X" },
+        { r: 1, c: 5, tipo: "letra", solucion: "W" },
+        { r: 1, c: 8, tipo: "letra", solucion: "R" },
+
+        { r: 2, c: 0, tipo: "letra", solucion: "R" },
+        { r: 2, c: 1, tipo: "bloque" },
+        { r: 2, c: 2, tipo: "pista", txt: "TEMA DE GIPSY KINGS", dir: "h" },
+        { r: 2, c: 3, tipo: "letra", solucion: "B" },
+        { r: 2, c: 4, tipo: "letra", solucion: "A" },
+        { r: 2, c: 5, tipo: "letra", solucion: "M" },
+        { r: 2, c: 6, tipo: "letra", solucion: "B" },
+        { r: 2, c: 7, tipo: "letra", solucion: "O" },
+        { r: 2, c: 8, tipo: "bloque" },
+
+        { r: 3, c: 0, tipo: "letra", solucion: "P" },
+        { r: 3, c: 1, tipo: "pista", txt: "CANTA FATHER AND SON", dir: "h" },
+        { r: 3, c: 2, tipo: "letra", solucion: "C" },
+        { r: 3, c: 3, tipo: "letra", solucion: "A" },
+        { r: 3, c: 4, tipo: "letra", solucion: "T" },
+        { r: 3, c: 5, tipo: "bloque" },
+        { r: 3, c: 6, tipo: "pista", txt: "SIMBOLO DEL OSMIO", dir: "h" },
+        { r: 3, c: 7, tipo: "letra", solucion: "O" },
+        { r: 3, c: 8, tipo: "letra", solucion: "S" },
+
+        // --- SECCIÓN MEDIA (Extraída de tus XML) ---
+        { r: 5, c: 0, tipo: "pista", txt: "UNO EN INGLÉS", dir: "h" },
+        { r: 5, c: 1, tipo: "letra", solucion: "O" },
+        { r: 5, c: 2, tipo: "letra", solucion: "N" },
+        { r: 5, c: 3, tipo: "letra", solucion: "E" },
+        { r: 5, c: 4, tipo: "bloque" },
+        { r: 5, c: 5, tipo: "pista", txt: "ACTOR 'EL PADRINO'", dir: "v" },
+        { r: 5, c: 10, tipo: "pista", txt: "LITIO", dir: "v" },
+
+        { r: 6, c: 5, tipo: "letra", solucion: "A" },
+        { r: 6, c: 6, tipo: "pista", txt: "AUMENTATIVO", dir: "h" },
+        { r: 6, c: 7, tipo: "letra", solucion: "O" },
+        { r: 6, c: 8, tipo: "letra", solucion: "N" },
+
+        // --- SECCIÓN CHAPLA (Story_u5fc) ---
+        { r: 10, c: 0, tipo: "pista", txt: "PAN TRADICIONAL AYACUCHO", dir: "h" },
+        { r: 10, c: 1, tipo: "letra", solucion: "C" },
+        { r: 10, c: 2, tipo: "letra", solucion: "H" },
+        { r: 10, c: 3, tipo: "letra", solucion: "A" },
+        { r: 10, c: 4, tipo: "letra", solucion: "P" },
+        { r: 10, c: 5, tipo: "letra", solucion: "L" },
+        { r: 10, c: 6, tipo: "letra", solucion: "A" },
+
+        // --- SECCIÓN ALOE ---
+        { r: 12, c: 0, tipo: "pista", txt: "PLANTA MEDICINAL VERA", dir: "h" },
+        { r: 12, c: 1, tipo: "letra", solucion: "A" },
+        { r: 12, c: 2, tipo: "letra", solucion: "L" },
+        { r: 12, c: 3, tipo: "letra", solucion: "O" },
+        { r: 12, c: 4, tipo: "letra", solucion: "E" },
+
+        // --- PISTAS SUELTAS DEL XML ---
+        { r: 14, c: 8, tipo: "pista", txt: "CIUDAD DE CALDEA", dir: "h" },
+        { r: 14, c: 9, tipo: "letra", solucion: "U" },
+        { r: 14, c: 10, tipo: "letra", solucion: "R" },
+
+        { r: 15, c: 2, tipo: "pista", txt: "SÍMBOLO DEL SODIO", dir: "h" },
+        { r: 15, c: 3, tipo: "letra", solucion: "N" },
+        { r: 15, c: 4, tipo: "letra", solucion: "A" },
       ]
-    }
-  },
-  {
-    id: 2,
-    filas: 5,
-    columnas: 5,
-    grid: [
-      [{ num: 1, char: "M" }, { num: 2, char: "A" }, { num: 3, char: "R" }, null, null],
-      [{ char: "I" }, null, { char: "I" }, null, { num: 4, char: "P" }],
-      [{ num: 5, char: "L" }, { char: "U" }, { char: "O" }, { char: "G" }, { char: "O" }],
-      [{ char: "O" }, null, null, null, { char: "L" }],
-      [null, null, { num: 6, char: "S" }, { char: "O" }, { char: "L" }]
-    ],
-    pistas: {
-      horizontales: [
-        { num: 1, texto: "Cuerpo de agua salada (3)" },
-        { num: 5, texto: "Sitio web o juego popular (Luogo) (5)" },
-        { num: 6, texto: "Estrella luminosa (3)" }
-      ],
-      verticales: [
-        { num: 1, texto: "Medio de transporte (Milo) (4)" },
-        { num: 3, texto: "Corriente de agua (3)" },
-        { num: 4, texto: "Extremo opuesto del norte (3)" }
-      ]
-    }
-  }
-];
+    };
+    setTablero(datosProcesados);
+  }, []);
 
-// ==========================================
-// 2. COMPONENTE DEL TABLERO CLÁSICO
-// ==========================================
-function CrucigramaTablero({ config, onWin }) {
-  const [userAnswers, setUserAnswers] = useState({});
-  const [direction, setDirection] = useState("horizontal"); 
-  const [activeCell, setActiveCell] = useState(null); 
-  const [showErrors, setShowErrors] = useState(false);
-  const [won, setWon] = useState(false);
-  const [showVictoryModal, setShowVictoryModal] = useState(false);
-  
-  const inputsRef = useRef({});
-
-  const focusCell = (r, c) => {
-    const key = `${r}-${c}`;
-    if (inputsRef.current[key]) {
-      inputsRef.current[key].focus();
-      setActiveCell({ r, c });
-    }
-  };
-
-  const getNextValidCell = (r, c, moveR, moveC) => {
-    let nextR = r + moveR;
-    let nextC = c + moveC;
-    if (nextR >= 0 && nextR < config.filas && nextC >= 0 && nextC < config.columnas) {
-      if (config.grid[nextR][nextC] !== null) return { r: nextR, c: nextC };
-    }
-    return null;
-  };
-
-  const handleKeyDown = (e, r, c) => {
-    if (won) return;
-    setShowErrors(false); 
-    const isHorizontal = direction === "horizontal";
-
-    switch (e.key) {
-      case "Backspace":
-        e.preventDefault();
-        setUserAnswers(prev => ({ ...prev, [`${r}-${c}`]: "" }));
-        const prev = getNextValidCell(r, c, isHorizontal ? 0 : -1, isHorizontal ? -1 : 0);
-        if (prev) focusCell(prev.r, prev.c);
-        break;
-      case "ArrowRight":
-        e.preventDefault();
-        setDirection("horizontal");
-        const right = getNextValidCell(r, c, 0, 1);
-        if (right) focusCell(right.r, right.c);
-        break;
-      case "ArrowLeft":
-        e.preventDefault();
-        setDirection("horizontal");
-        const left = getNextValidCell(r, c, 0, -1);
-        if (left) focusCell(left.r, left.c);
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        setDirection("vertical");
-        const down = getNextValidCell(r, c, 1, 0);
-        if (down) focusCell(down.r, down.c);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setDirection("vertical");
-        const up = getNextValidCell(r, c, -1, 0);
-        if (up) focusCell(up.r, up.c);
-        break;
-      default:
-        if (/^[a-zA-ZñÑ]$/.test(e.key)) {
-          e.preventDefault();
-          const val = e.key.toUpperCase();
-          setUserAnswers(prev => ({ ...prev, [`${r}-${c}`]: val }));
-          const next = getNextValidCell(r, c, isHorizontal ? 0 : 1, isHorizontal ? 1 : 0);
-          if (next) focusCell(next.r, next.c);
-        }
-        break;
-    }
-  };
-
-  const verificarVictoria = () => {
-    let completo = true;
-    let correcto = true;
-
-    config.grid.forEach((fila, r) => {
-      fila.forEach((celda, c) => {
-        if (celda !== null) {
-          const resp = userAnswers[`${r}-${c}`];
-          if (!resp) completo = false;
-          if (resp !== celda.char) correcto = false;
-        }
-      });
+  const comprobarSolucion = () => {
+    let aciertos = 0;
+    let total = 0;
+    tablero.celdas.forEach(celda => {
+      if (celda.tipo === "letra") {
+        total++;
+        const respondido = respuestas[`${celda.r}-${celda.c}`]?.toUpperCase();
+        if (respondido === celda.solucion) aciertos++;
+      }
     });
-
-    if (completo && correcto) {
-      setWon(true);
-      setShowErrors(false);
-      setShowVictoryModal(true);
-    } else {
-      setShowErrors(true);
-    }
+    alert(`Resultado: ${aciertos} de ${total} correctas.`);
   };
+
+  if (!tablero) return <div className="p-20 text-center font-serif text-2xl">Generando Edición Digital...</div>;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 w-full bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-slate-200">
-      
-      {/* SECCIÓN IZQUIERDA: EL TABLERO */}
-      <div className="flex flex-col items-center w-full lg:w-auto">
-        <div className="w-full flex justify-between items-center mb-6">
-           <h2 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight">
-             Crucigrama <span className="text-blue-600">#{config.id}</span>
-           </h2>
-           {!won ? (
-             <button 
-               onClick={verificarVictoria}
-               className="px-5 py-2 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 active:scale-95 transition-all text-sm shadow-md"
-             >
-               Verificar
-             </button>
-           ) : (
-             <button 
-               onClick={() => onWin(500)}
-               className="px-5 py-2 bg-green-500 text-white font-black rounded-lg hover:bg-green-600 active:scale-95 transition-all text-sm shadow-md animate-pulse"
-             >
-               Cobrar Puntos ➡️
-             </button>
-           )}
+    <div className="max-w-6xl mx-auto p-4 bg-[#f0f0f0] min-h-screen text-black font-sans">
+      {/* HEADER TIPO PRENSA */}
+      <header className="border-b-4 border-black mb-6 flex justify-between items-end pb-2">
+        <div>
+          <span className="bg-red-600 text-white px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">Interactiva</span>
+          <h1 className="text-7xl font-black italic tracking-tighter leading-none mt-1">MASTERGRAMA</h1>
         </div>
+        <div className="text-right border-l-2 border-gray-300 pl-4 h-16 flex flex-col justify-center">
+          <p className="text-sm font-bold leading-tight">{tablero.fecha}</p>
+          <p className="text-xs text-red-600 font-bold uppercase tracking-widest">La República</p>
+        </div>
+      </header>
 
-        <div className="relative inline-block w-full overflow-x-auto pb-4">
-          <div 
-            className="grid bg-black border-2 border-black p-[1px] min-w-max mx-auto"
-            style={{ 
-              gridTemplateColumns: `repeat(${config.columnas}, minmax(35px, 45px))`, 
-              gridTemplateRows: `repeat(${config.filas}, minmax(35px, 45px))`,
-              gap: '1px' 
+      <div className="grid md:grid-cols-[1fr_300px] gap-8">
+        {/* AREA DEL JUEGO */}
+        <div className="bg-white p-6 shadow-[20px_20px_0px_0px_rgba(0,0,0,0.05)] border border-gray-200 overflow-auto">
+          <div
+            className="grid bg-gray-300 p-[1px] mx-auto"
+            style={{
+              gridTemplateColumns: `repeat(${tablero.columnas}, 48px)`,
+              width: "fit-content"
             }}
           >
-            {config.grid.map((fila, r) => fila.map((celda, c) => {
-              const isActive = activeCell?.r === r && activeCell?.c === c;
-              const currentVal = userAnswers[`${r}-${c}`];
-              const isError = showErrors && currentVal && currentVal !== celda?.char;
-              
-              if (celda === null) return <div key={`${r}-${c}`} className="bg-black w-full h-full"></div>;
+            {/* Relleno Dinámico: Generamos todas las celdas del 15x18 */}
+            {Array.from({ length: tablero.columnas * tablero.filas }).map((_, index) => {
+              const r = Math.floor(index / tablero.columnas);
+              const c = index % tablero.columnas;
+              const celda = tablero.celdas.find(cel => cel.r === r && cel.c === c);
 
               return (
-                <div key={`${r}-${c}`} className="relative w-full h-full bg-white flex items-center justify-center aspect-square">
-                  {celda.num && (
-                    <span className="absolute top-0.5 left-0.5 text-[9px] md:text-[11px] font-bold text-slate-800 leading-none select-none">
-                      {celda.num}
-                    </span>
+                <div key={index} className="w-[48px] h-[48px] bg-white border-[0.5px] border-gray-400 relative">
+                  {celda?.tipo === "pista" && (
+                    <div className="absolute inset-0 bg-yellow-50 p-1 flex flex-col justify-between items-center overflow-hidden border-2 border-yellow-200">
+                      <span className="text-[7.5px] leading-[8px] font-bold uppercase text-center text-gray-700 h-full flex items-center">
+                        {celda.txt}
+                      </span>
+                      <span className="text-red-600 font-black text-xs leading-none">
+                        {celda.dir === "v" ? "↓" : "→"}
+                      </span>
+                    </div>
                   )}
-                  <input
-                    ref={el => inputsRef.current[`${r}-${c}`] = el}
-                    maxLength={1}
-                    readOnly 
-                    onClick={() => {
-                      if (activeCell?.r === r && activeCell?.c === c) setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal");
-                      else setActiveCell({r, c});
-                    }}
-                    onKeyDown={(e) => handleKeyDown(e, r, c)}
-                    className={`w-full h-full text-center font-bold text-lg md:text-xl uppercase outline-none cursor-pointer transition-colors
-                      ${isActive ? "bg-yellow-200" : "bg-transparent"}
-                      ${isError ? "text-red-600 bg-red-100" : "text-slate-900"} 
-                      ${won ? "text-green-700 font-black" : ""}
-                    `}
-                    value={currentVal || ""}
-                  />
+
+                  {celda?.tipo === "letra" && (
+                    <input
+                      maxLength={1}
+                      className="w-full h-full text-center font-bold text-2xl uppercase focus:bg-blue-50 outline-none transition-all focus:ring-2 focus:ring-blue-400 z-10 relative bg-transparent"
+                      onChange={(e) => setRespuestas({ ...respuestas, [`${r}-${c}`]: e.target.value })}
+                    />
+                  )}
+
+                  {(celda?.tipo === "bloque" || !celda) && (
+                    <div className={`w-full h-full ${!celda ? 'bg-gray-100' : 'bg-black'}`} />
+                  )}
                 </div>
               );
-            }))}
+            })}
+          </div>
+        </div>
+
+        {/* SIDEBAR DE INFO Y PUBLICIDAD */}
+        <aside className="space-y-6">
+          <div className="bg-red-600 text-white p-5 transform -rotate-1 shadow-lg">
+            <h2 className="font-black text-xl mb-2">¡EL RETO DE HOY!</h2>
+            <p className="text-sm italic">Completa el Mastergrama y pon a prueba tu cultura general. Basado en la edición impresa de La República.</p>
           </div>
 
-          {/* OVERLAY DE VICTORIA */}
-          {showVictoryModal && (
-            <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center z-10 animate-in fade-in duration-300 rounded-sm border-2 border-slate-200 p-4">
-              <button 
-                onClick={() => setShowVictoryModal(false)}
-                className="absolute top-2 right-2 text-slate-400 hover:text-slate-700 font-black text-lg h-8 w-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"
-              >
-                ✕
-              </button>
-              <span className="text-5xl mb-3">🏆</span>
-              <p className="text-green-600 font-black text-2xl mb-6 text-center">¡Perfecto!</p>
-              <button 
-                onClick={() => onWin(500)} 
-                className="px-6 py-3 mb-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm md:text-base rounded-full shadow-lg hover:-translate-y-1 transition-all w-full max-w-[200px]"
-              >
-                Cobrar +500 pts
-              </button>
-              <button 
-                onClick={() => setShowVictoryModal(false)}
-                className="text-xs font-bold text-slate-500 hover:text-slate-800 underline uppercase tracking-wider"
-              >
-                Ver tablero
-              </button>
+          {/* Bloque de Publicidad recreado del PDF */}
+          <div className="border-4 border-double border-gray-400 p-4 bg-white shadow-inner">
+            <h3 className="text-xs font-black text-gray-500 mb-3 border-b pb-1 uppercase tracking-tighter">Promociones Práktika</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-2">
+                <div className="w-12 h-12 bg-gray-200 rounded shrink-0"></div>
+                <div>
+                  <p className="text-[10px] font-bold leading-tight">OLLA A PRESIÓN 6 LTS + CUCHILLO ACERO</p>
+                  <p className="text-red-600 font-black text-sm">S/ 210.00</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-12 h-12 bg-gray-200 rounded shrink-0"></div>
+                <div>
+                  <p className="text-[10px] font-bold leading-tight">MINI LICUADORA SHAKE TO GO</p>
+                  <p className="text-gray-400 text-[9px] italic font-serif">El diario de verdad</p>
+                </div>
+              </div>
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* SECCIÓN DERECHA/ABAJO: LAS PISTAS */}
-      <div className="flex-1 flex flex-col sm:flex-row lg:flex-col gap-6 lg:h-[400px] lg:overflow-y-auto pr-2 lg:pl-6 lg:border-l border-slate-200 pt-6 lg:pt-0">
-        <div className="flex-1">
-          <h3 className="font-black text-lg text-slate-800 mb-3 border-b-2 border-slate-800 pb-1 flex items-center gap-2">
-            <span>➡️</span> Horizontales
-          </h3>
-          <ul className="space-y-3">
-            {config.pistas.horizontales.map((pista) => (
-              <li key={`h-${pista.num}`} className="text-sm flex gap-3 p-2 rounded-lg hover:bg-slate-50 border border-transparent transition-all">
-                <span className="font-black text-blue-600 min-w-[1.2rem]">{pista.num}</span>
-                <span className="text-slate-700 font-medium">{pista.texto}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex-1">
-          <h3 className="font-black text-lg text-slate-800 mb-3 border-b-2 border-slate-800 pb-1 flex items-center gap-2">
-            <span>⬇️</span> Verticales
-          </h3>
-          <ul className="space-y-3">
-            {config.pistas.verticales.map((pista) => (
-              <li key={`v-${pista.num}`} className="text-sm flex gap-3 p-2 rounded-lg hover:bg-slate-50 border border-transparent transition-all">
-                <span className="font-black text-blue-600 min-w-[1.2rem]">{pista.num}</span>
-                <span className="text-slate-700 font-medium">{pista.texto}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// 3. COMPONENTE PADRE EXPORTADO (WIDGET LIMPIO)
-// ==========================================
-export default function Crucigrama({ onWin }) {
-  // El Dashboard de page.js ya controla el "Nivel", así que inicializamos desde el primero.
-  const nivelActual = NIVELES[0];
-
-  return (
-    <div className="w-full flex flex-col font-sans pt-8 md:pt-4">
-      
-      {/* HUD HEADER INTERNO */}
-      <div className="flex justify-between items-center w-full bg-slate-800 px-6 py-4 rounded-2xl mb-6 shadow-md">
-        <div className="flex items-center gap-4">
-          <div className="bg-blue-500 text-white p-2 md:p-3 rounded-xl font-black text-xl shadow-inner leading-none">
-            {nivelActual.id}
           </div>
-          <div>
-            <span className="text-[10px] md:text-xs text-blue-200 font-bold tracking-widest uppercase block">DESAFÍO</span>
-            <span className="text-sm md:text-base font-bold text-white">Diario</span>
-          </div>
-        </div>
-        <div className="text-right">
-          <span className="text-[10px] md:text-xs text-green-300 font-bold tracking-widest uppercase block">RECOMPENSA</span>
-          <span className="text-xl md:text-2xl font-black text-white">+500 pts</span>
-        </div>
-      </div>
 
-      <div className="w-full">
-        {/* Aquí pasamos el prop onWin directo desde tu page.js hacia el tablero */}
-        <CrucigramaTablero config={nivelActual} onWin={onWin} />
+          <div className="sticky top-4 flex flex-col gap-3">
+            <button
+              onClick={comprobarSolucion}
+              className="w-full bg-black text-white py-4 font-black text-2xl hover:bg-red-600 transition-colors shadow-[8px_8px_0px_0px_rgba(220,38,38,1)] uppercase italic tracking-tighter"
+            >
+              Comprobar
+            </button>
+            <button
+              onClick={() => window.print()}
+              className="w-full border-2 border-black py-2 font-bold hover:bg-gray-200 flex items-center justify-center gap-2"
+            >
+              <span>🖨️</span> VERSIÓN IMPRESA
+            </button>
+          </div>
+        </aside>
       </div>
     </div>
   );

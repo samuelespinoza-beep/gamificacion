@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Spread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="7.0">
+   <Spread Self="u50c" FlattenerOverride="Default" AllowPageShuffle="true"
+      ItemTransform="1 0 0 1 0 0" ShowMasterItems="true" PageCount="1" BindingLocation="1"
+      PageTransitionType="None" PageTransitionDirection="NotApplicable"
+      PageTransitionDuration="Medium">
+      <FlattenerPreference LineArtAndTextResolution="300" GradientAndMeshResolution="150"
+         ClipComplexRegions="false" ConvertAllStrokesToOutlines="false"
+         ConvertAllTextToOutlines="false">
+         <Properties>
+            <RasterVectorBalance type="double">50</RasterVectorBalance>
+         </Properties>
+      </FlattenerPreference>
+      <Page Self="u513" GeometricBounds="0 0 822.0472440944882 817.7952755905512"
+         ItemTransform="1 0 0 1 -817.7952755905512 -411.0236220472441" Name="16"
+         AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" OverrideList=""
+         AppliedMaster="ubc" MasterPageTransform="1 0 0 1 0 0" TabOrder=""
+         GridStartingPoint="TopOutside" UseMasterGrid="false">
+         <Properties>
+            <Descriptor type="list">
+               <ListItem type="string"></ListItem>
+               <ListItem type="enumeration">Arabic</ListItem>
+               <ListItem type="boolean">false</ListItem>
+               <ListItem type="boolean">false</ListItem>
+               <ListItem type="long">16</ListItem>
+               <ListItem type="string"></ListItem>
+            </Descriptor>
+            <PageColor type="enumeration">UseMasterColor</PageColor>
+         </Properties>
+         <MarginPreference ColumnCount="12" ColumnGutter="11.338582677165356"
+            Top="37.70078740157481" Bottom="37.70078740157481" Left="34.01574803149607"
+            Right="46.77165354330709" ColumnDirection="Horizontal"
+            ColumnsPositions="0 51.02362204724409 62.362204724409445 113.38582677165354 124.7244094488189 175.748031496063 187.08661417322836 238.11023622047244 249.4488188976378 300.4724409448819 311.81102362204723 362.8346456692913 374.17322834645665 425.19685039370074 436.5354330708661 487.55905511811017 498.8976377952755 549.9212598425196 561.259842519685 612.2834645669291 623.6220472440945 674.6456692913385 685.9842519685039 737.007874015748" />
+         <GridDataInformation FontStyle="Regular" PointSize="12" CharacterAki="0" LineAki="9"
+            HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify"
+            GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+            <Properties>
+               <AppliedFont type="string">Minion Pro</AppliedFont>
+            </Properties>
+         </GridDataInformation>
+      </Page>
+      <Rectangle Self="udad" Geoimtw="$ID/1" Guid="$ID/" VersionGuid="$ID/"
+         ContentType="GraphicType" StoryTitle="$ID/" ElementLabel="graphic"
+         GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0"
+         GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0"
+         ItemLayer="u507" Locked="false" LocalDisplaySetting="Default"
+         GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0"
+         GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" Visible="true"
+         Name="$ID/" ItemTransform="1 0 0 1 -985.0393852774553 21.65067853792442">
+         <Properties>
+            <SplineEditions type="list">
+               <ListItem type="string">3</ListItem>
+            </SplineEditions>
+            <PathGeometry>
+               <GeometryPathType PathOpen="false">
+                  <PathPointArray>
+                     <PathPointType Anchor="-87.8740005493164 -352.91351318359375"
+                        LeftDirection="-87.8740005493164 -352.91351318359375"
+                        RightDirection="-87.8740005493164 -352.91351318359375" />
+                     <PathPointType Anchor="-87.8740005493164 352.91351318359375"
+                        LeftDirection="-87.8740005493164 352.91351318359375"
+                        RightDirection="-87.8740005493164 352.91351318359375" />
+                     <PathPointType Anchor="87.8740005493164 352.91351318359375"
+                        LeftDirection="87.8740005493164 352.91351318359375"
+                        RightDirection="87.8740005493164 352.91351318359375" />
+                     <PathPointType Anchor="87.8740005493164 -352.91351318359375"
+                        LeftDirection="87.8740005493164 -352.91351318359375"
+                        RightDirection="87.8740005493164 -352.91351318359375" />
+                  </PathPointArray>
+               </GeometryPathType>
+            </PathGeometry>
+         </Properties>
+         <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+            TextWrapSide="BothSides" TextWrapMode="None">
+            <Properties>
+               <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+            </Properties>
+            <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+               ContourPathName="$ID/" />
+         </TextWrapPreference>
+         <InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+         <PDF Self="uda8" GrayVectorPolicy="IgnoreAll" RGBVectorPolicy="IgnoreAll"
+            CMYKVectorPolicy="IgnoreAll" LocalDisplaySetting="Default"
+            ImageTypeName="$ID/Adobe Portable Document Format (PDF)"
+            AppliedObjectStyle="ObjectStyle/$ID/[None]"
+            ItemTransform="1 0 0 1 -87.8740005493164 -352.91351318359375" ElementLabel="$ID/"
+            Visible="true" Name="$ID/">
+            <Properties>
+               <GraphicBounds Left="0" Top="0" Right="175.7480010986328"
+                  Bottom="705.8270263671875" />
+               <SplineEditions type="list">
+               </SplineEditions>
+            </Properties>
+            <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+               TextWrapSide="BothSides" TextWrapMode="None">
+               <Properties>
+                  <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+               </Properties>
+               <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+                  ContourPathName="$ID/" />
+            </TextWrapPreference>
+            <PDFAttribute PageNumber="1" PDFCrop="CropContentVisibleLayers"
+               TransparentBackground="true" />
+            <MetadataPacketPreference>
+               <Properties>
+                  <Contents>
+                     <![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+                     <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.0-c060 61.134777, 2010/02/12-17:32:00">
+                        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                           <rdf:Description rdf:about=""
+                                 xmlns:dc="http://purl.org/dc/elements/1.1/">
+                              <dc:format>application/pdf</dc:format>
+                              <dc:title>
+                                 <rdf:Alt>
+                                    <rdf:li xml:lang="x-default">16 - IQT_10x2_Iquitos-PeruBazar.LIB - 17</rdf:li>
+                                 </rdf:Alt>
+                              </dc:title>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+                                 xmlns:xmpGImg="http://ns.adobe.com/xap/1.0/g/img/">
+                              <xmp:MetadataDate>2026-02-26T17:37:08-05:00</xmp:MetadataDate>
+                              <xmp:ModifyDate>2026-03-24T13:32:01</xmp:ModifyDate>
+                              <xmp:CreateDate>2026-03-24T13:32:01</xmp:CreateDate>
+                              <xmp:CreatorTool>Adobe Illustrator 25.4 (Windows)</xmp:CreatorTool>
+                              <xmp:Thumbnails>
+                                 <rdf:Alt>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <xmpGImg:width>64</xmpGImg:width>
+                                       <xmpGImg:height>256</xmpGImg:height>
+                                       <xmpGImg:format>JPEG</xmpGImg:format>
+                                       <xmpGImg:image>/9j/4AAQSkZJRgABAgEASABIAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABAASAAAAAEA&#xA;AQBIAAAAAQAB/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoK&#xA;DBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8f&#xA;Hx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgBAABAAwER&#xA;AAIRAQMRAf/EAaIAAAAHAQEBAQEAAAAAAAAAAAQFAwIGAQAHCAkKCwEAAgIDAQEBAQEAAAAAAAAA&#xA;AQACAwQFBgcICQoLEAACAQMDAgQCBgcDBAIGAnMBAgMRBAAFIRIxQVEGE2EicYEUMpGhBxWxQiPB&#xA;UtHhMxZi8CRygvElQzRTkqKyY3PCNUQnk6OzNhdUZHTD0uIIJoMJChgZhJRFRqS0VtNVKBry4/PE&#xA;1OT0ZXWFlaW1xdXl9WZ2hpamtsbW5vY3R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo+Ck5SVlpeYmZ&#xA;qbnJ2en5KjpKWmp6ipqqusra6voRAAICAQIDBQUEBQYECAMDbQEAAhEDBCESMUEFURNhIgZxgZEy&#xA;obHwFMHR4SNCFVJicvEzJDRDghaSUyWiY7LCB3PSNeJEgxdUkwgJChgZJjZFGidkdFU38qOzwygp&#xA;0+PzhJSktMTU5PRldYWVpbXF1eX1RlZmdoaWprbG1ub2R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo&#xA;+DlJWWl5iZmpucnZ6fkqOkpaanqKmqq6ytrq+v/aAAwDAQACEQMRAD8A6Np6KZSCB9g/wzyvNmnZ&#xA;3P1PT6+A8EbdyMjtreS5ijmYRQswEklPsgnc5bpshlMCUiIk7l56QV/0Jp9wXEBmegp8JVgH+EcO&#xA;QWjbk0p17ZusWCM/pMj8eu219f0tJChN5Ys2umgE00dCwMhDNSiqAOCpzNJJFB9vvzKGlHFw3L8V&#xA;0q+ZajFL5/KknrGKlzvbh0Kqx/edDWiU4g0J32HU12yY0xBr1cmmWM+aEu/L2gRemz6y6QSN6izs&#xA;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&#xA;7VjqZwjDiAEhsfsPM+baMPBGRPc//9k=</xmpGImg:image>
+                                    </rdf:li>
+                                 </rdf:Alt>
+                              </xmp:Thumbnails>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+                                 xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
+                                 xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+                                 xmlns:stMfs="http://ns.adobe.com/xap/1.0/sType/ManifestItem#">
+                              <xmpMM:InstanceID>uuid:e2ff5d19-2088-4f32-b143-ab359551ea23</xmpMM:InstanceID>
+                              <xmpMM:DocumentID>xmp.did:943eaaea-8796-b047-a4c8-79f088211fb3</xmpMM:DocumentID>
+                              <xmpMM:OriginalDocumentID>uuid:5D20892493BFDB11914A8590D31508C8</xmpMM:OriginalDocumentID>
+                              <xmpMM:RenditionClass>proof:pdf</xmpMM:RenditionClass>
+                              <xmpMM:DerivedFrom rdf:parseType="Resource">
+                                 <stRef:instanceID>xmp.iid:09a5f552-fde2-4146-82f9-9be34e5f6599</stRef:instanceID>
+                                 <stRef:documentID>xmp.did:09a5f552-fde2-4146-82f9-9be34e5f6599</stRef:documentID>
+                                 <stRef:originalDocumentID>uuid:5D20892493BFDB11914A8590D31508C8</stRef:originalDocumentID>
+                                 <stRef:renditionClass>proof:pdf</stRef:renditionClass>
+                              </xmpMM:DerivedFrom>
+                              <xmpMM:History>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stEvt:action>saved</stEvt:action>
+                                       <stEvt:instanceID>xmp.iid:72d3556d-d537-8f4d-8aa6-2d7367001f6c</stEvt:instanceID>
+                                       <stEvt:when>2023-07-19T17:35:39-05:00</stEvt:when>
+                                       <stEvt:softwareAgent>Adobe Illustrator 27.7 (Windows)</stEvt:softwareAgent>
+                                       <stEvt:changed>/</stEvt:changed>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stEvt:action>saved</stEvt:action>
+                                       <stEvt:instanceID>xmp.iid:943eaaea-8796-b047-a4c8-79f088211fb3</stEvt:instanceID>
+                                       <stEvt:when>2026-02-26T17:36:16-05:00</stEvt:when>
+                                       <stEvt:softwareAgent>Adobe Illustrator 25.4 (Windows)</stEvt:softwareAgent>
+                                       <stEvt:changed>/</stEvt:changed>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpMM:History>
+                              <xmpMM:Manifest>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Usuarios\dniquen\Downloads\PRODUCTOS\Bases y Productos\ventilador de torre.png</stRef:filePath>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpMM:Manifest>
+                              <xmpMM:Ingredients>
+                                 <rdf:Bag>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stRef:filePath>D:\Usuarios\dniquen\Downloads\PRODUCTOS\Bases y Productos\ventilador de torre.png</stRef:filePath>
+                                    </rdf:li>
+                                 </rdf:Bag>
+                              </xmpMM:Ingredients>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:illustrator="http://ns.adobe.com/illustrator/1.0/">
+                              <illustrator:StartupProfile>Print</illustrator:StartupProfile>
+                              <illustrator:CreatorSubTool>Adobe Illustrator</illustrator:CreatorSubTool>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+                                 xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#"
+                                 xmlns:xmpG="http://ns.adobe.com/xap/1.0/g/">
+                              <xmpTPg:HasVisibleOverprint>True</xmpTPg:HasVisibleOverprint>
+                              <xmpTPg:HasVisibleTransparency>True</xmpTPg:HasVisibleTransparency>
+                              <xmpTPg:NPages>1</xmpTPg:NPages>
+                              <xmpTPg:MaxPageSize rdf:parseType="Resource">
+                                 <stDim:w>6.199999</stDim:w>
+                                 <stDim:h>24.900009</stDim:h>
+                                 <stDim:unit>Centimeters</stDim:unit>
+                              </xmpTPg:MaxPageSize>
+                              <xmpTPg:PlateNames>
+                                 <rdf:Seq>
+                                    <rdf:li>Cyan</rdf:li>
+                                    <rdf:li>Magenta</rdf:li>
+                                    <rdf:li>Yellow</rdf:li>
+                                    <rdf:li>Black</rdf:li>
+                                 </rdf:Seq>
+                              </xmpTPg:PlateNames>
+                              <xmpTPg:SwatchGroups>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <xmpG:groupName>Grupo de muestras por defecto</xmpG:groupName>
+                                       <xmpG:groupType>0</xmpG:groupType>
+                                       <xmpG:Colorants>
+                                          <rdf:Seq>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=75 M=100 Y=0 K=25</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>75.000000</xmpG:cyan>
+                                                <xmpG:magenta>100.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>25.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=100 Y=100 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>100.000000</xmpG:magenta>
+                                                <xmpG:yellow>100.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=30 Y=100 K=0 2</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>30.000001</xmpG:magenta>
+                                                <xmpG:yellow>100.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=100 M=0 Y=50 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>100.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>50.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=100</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>100.000000</xmpG:black>
+                                             </rdf:li>
+                                          </rdf:Seq>
+                                       </xmpG:Colorants>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpTPg:SwatchGroups>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+                              <pdf:Producer>Adobe PDF library 16.00</pdf:Producer>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/">
+                              <xmpRights:Marked>False</xmpRights:Marked>
+                           </rdf:Description>
+                        </rdf:RDF>
+                     </x:xmpmeta>
+                     <?xpacket end="r"?>]]>
+                  </Contents>
+               </Properties>
+            </MetadataPacketPreference>
+            <Link Self="udac" WWoi="$ID/4240340" AssetURL="$ID/" AssetID="$ID/"
+               LinkResourceURI="sc:4240340"
+               LinkResourceFormat="$ID/Adobe Portable Document Format (PDF)"
+               StoredState="Normal" LinkClassID="35906" LinkClientID="257"
+               LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true"
+               CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport"
+               ExportPolicy="NoAutoExport" LinkImportStamp="file 134188487160000000 292773"
+               LinkImportModificationTime="2026-03-24T12:58:36"
+               LinkImportTime="2026-03-24T13:31:42" LinkResourceSize="0~477a5" />
+            <ClippingPathSettings ClippingType="None" InvertPath="false"
+               IncludeInsideEdges="false" RestrictToFrame="false" UseHighResolutionImage="true"
+               Threshold="25" Tolerance="2" InsetFrame="0" AppliedPathName="$ID/" Index="-1" />
+            <GraphicLayerOption UpdateLinkOption="KeepOverrides" />
+         </PDF>
+      </Rectangle>
+      <Rectangle Self="udb6" Geoimtw="$ID/1" Guid="$ID/" VersionGuid="$ID/"
+         ContentType="GraphicType" StoryTitle="$ID/" ElementLabel="graphic"
+         GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0"
+         GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0"
+         ItemLayer="u507" Locked="false" LocalDisplaySetting="Default"
+         GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0"
+         GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" Visible="true"
+         Name="$ID/" ItemTransform="1 0 0 1 -683.1496214979276 21.650648020346296">
+         <Properties>
+            <SplineEditions type="list">
+               <ListItem type="string">3</ListItem>
+            </SplineEditions>
+            <PathGeometry>
+               <GeometryPathType PathOpen="false">
+                  <PathPointArray>
+                     <PathPointType Anchor="-87.8740005493164 -352.9134826660156"
+                        LeftDirection="-87.8740005493164 -352.9134826660156"
+                        RightDirection="-87.8740005493164 -352.9134826660156" />
+                     <PathPointType Anchor="-87.8740005493164 352.9134826660156"
+                        LeftDirection="-87.8740005493164 352.9134826660156"
+                        RightDirection="-87.8740005493164 352.9134826660156" />
+                     <PathPointType Anchor="87.8740005493164 352.9134826660156"
+                        LeftDirection="87.8740005493164 352.9134826660156"
+                        RightDirection="87.8740005493164 352.9134826660156" />
+                     <PathPointType Anchor="87.8740005493164 -352.9134826660156"
+                        LeftDirection="87.8740005493164 -352.9134826660156"
+                        RightDirection="87.8740005493164 -352.9134826660156" />
+                  </PathPointArray>
+               </GeometryPathType>
+            </PathGeometry>
+         </Properties>
+         <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+            TextWrapSide="BothSides" TextWrapMode="None">
+            <Properties>
+               <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+            </Properties>
+            <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+               ContourPathName="$ID/" />
+         </TextWrapPreference>
+         <InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+         <PDF Self="udaf" GrayVectorPolicy="IgnoreAll" RGBVectorPolicy="IgnoreAll"
+            CMYKVectorPolicy="IgnoreAll" LocalDisplaySetting="Default"
+            ImageTypeName="$ID/Adobe Portable Document Format (PDF)"
+            AppliedObjectStyle="ObjectStyle/$ID/[None]"
+            ItemTransform="1 0 0 1 -87.8740005493164 -352.9134826660156" ElementLabel="$ID/"
+            Visible="true" Name="$ID/">
+            <Properties>
+               <GraphicBounds Left="0" Top="0" Right="175.7480010986328"
+                  Bottom="705.8269653320312" />
+               <SplineEditions type="list">
+               </SplineEditions>
+            </Properties>
+            <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+               TextWrapSide="BothSides" TextWrapMode="None">
+               <Properties>
+                  <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+               </Properties>
+               <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+                  ContourPathName="$ID/" />
+            </TextWrapPreference>
+            <PDFAttribute PageNumber="1" PDFCrop="CropContentVisibleLayers"
+               TransparentBackground="true" />
+            <MetadataPacketPreference>
+               <Properties>
+                  <Contents>
+                     <![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+                     <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.0-c060 61.134777, 2010/02/12-17:32:00        ">
+                        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                           <rdf:Description rdf:about=""
+                                 xmlns:dc="http://purl.org/dc/elements/1.1/">
+                              <dc:format>application/pdf</dc:format>
+                              <dc:title>
+                                 <rdf:Alt>
+                                    <rdf:li xml:lang="x-default">16 - LNS_10x2_PeruBazar.LIB - Ventiladores</rdf:li>
+                                 </rdf:Alt>
+                              </dc:title>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+                                 xmlns:xmpGImg="http://ns.adobe.com/xap/1.0/g/img/">
+                              <xmp:MetadataDate>2026-03-24T12:51:05-05:00</xmp:MetadataDate>
+                              <xmp:ModifyDate>2026-03-24T13:31:54</xmp:ModifyDate>
+                              <xmp:CreateDate>2026-03-24T13:31:54</xmp:CreateDate>
+                              <xmp:CreatorTool>Adobe Illustrator 30.2 (Windows)</xmp:CreatorTool>
+                              <xmp:Thumbnails>
+                                 <rdf:Alt>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <xmpGImg:width>64</xmpGImg:width>
+                                       <xmpGImg:height>256</xmpGImg:height>
+                                       <xmpGImg:format>JPEG</xmpGImg:format>
+                                       <xmpGImg:image>/9j/4AAQSkZJRgABAgEAAAAAAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABAAAAAAAAEA&#xA;AQAAAAAAAQAB/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoK&#xA;DBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8f&#xA;Hx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgBAABAAwER&#xA;AAIRAQMRAf/EAaIAAAAHAQEBAQEAAAAAAAAAAAQFAwIGAQAHCAkKCwEAAgIDAQEBAQEAAAAAAAAA&#xA;AQACAwQFBgcICQoLEAACAQMDAgQCBgcDBAIGAnMBAgMRBAAFIRIxQVEGE2EicYEUMpGhBxWxQiPB&#xA;UtHhMxZi8CRygvElQzRTkqKyY3PCNUQnk6OzNhdUZHTD0uIIJoMJChgZhJRFRqS0VtNVKBry4/PE&#xA;1OT0ZXWFlaW1xdXl9WZ2hpamtsbW5vY3R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo+Ck5SVlpeYmZ&#xA;qbnJ2en5KjpKWmp6ipqqusra6voRAAICAQIDBQUEBQYECAMDbQEAAhEDBCESMUEFURNhIgZxgZEy&#xA;obHwFMHR4SNCFVJicvEzJDRDghaSUyWiY7LCB3PSNeJEgxdUkwgJChgZJjZFGidkdFU38qOzwygp&#xA;0+PzhJSktMTU5PRldYWVpbXF1eX1RlZmdoaWprbG1ub2R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo&#xA;+DlJWWl5iZmpucnZ6fkqOkpaanqKmqq6ytrq+v/aAAwDAQACEQMRAD8Avzt52ubK5bTNMYJKgH1i&#xA;4pUqTvxSu3Tqc5r2b9m4ZYDPnFg/TH9J/QPvt6vV6sxPDFKvLVh5m8wW88kPmE2s0c0cKRXNzLGr&#xA;GRXavIEhVHCnTqRnYT7M0kf8jj/0kf1Osnqpx6y+aNHlXzmQD/ia24mm/wCkZOvJFIp129UH5bjI&#xA;/wAn6P8A1GH+kj+pj+cn3yVG8p+bYriCObzRCIpZrSGWSO9kdkF5IIw/ElQwjNeVG2pj/J+j/wBR&#xA;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</xmpGImg:image>
+                                    </rdf:li>
+                                 </rdf:Alt>
+                              </xmp:Thumbnails>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+                                 xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
+                                 xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+                                 xmlns:stMfs="http://ns.adobe.com/xap/1.0/sType/ManifestItem#">
+                              <xmpMM:InstanceID>uuid:9f5ec9f6-1834-463e-987e-07c58d9cd3fa</xmpMM:InstanceID>
+                              <xmpMM:DocumentID>xmp.did:324d140b-34f9-b14d-a52a-e5525bbdf24a</xmpMM:DocumentID>
+                              <xmpMM:OriginalDocumentID>uuid:5D20892493BFDB11914A8590D31508C8</xmpMM:OriginalDocumentID>
+                              <xmpMM:RenditionClass>proof:pdf</xmpMM:RenditionClass>
+                              <xmpMM:DerivedFrom rdf:parseType="Resource">
+                                 <stRef:instanceID>uuid:723d2cf0-6308-4334-87a6-6ff36213b2e6</stRef:instanceID>
+                                 <stRef:documentID>xmp.did:51155561-db13-b54d-9ed7-0746d65c4d37</stRef:documentID>
+                                 <stRef:originalDocumentID>uuid:5D20892493BFDB11914A8590D31508C8</stRef:originalDocumentID>
+                                 <stRef:renditionClass>proof:pdf</stRef:renditionClass>
+                              </xmpMM:DerivedFrom>
+                              <xmpMM:History>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stEvt:action>saved</stEvt:action>
+                                       <stEvt:instanceID>xmp.iid:72d3556d-d537-8f4d-8aa6-2d7367001f6c</stEvt:instanceID>
+                                       <stEvt:when>2023-07-19T17:35:39-05:00</stEvt:when>
+                                       <stEvt:softwareAgent>Adobe Illustrator 27.7 (Windows)</stEvt:softwareAgent>
+                                       <stEvt:changed>/</stEvt:changed>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stEvt:action>saved</stEvt:action>
+                                       <stEvt:instanceID>xmp.iid:324d140b-34f9-b14d-a52a-e5525bbdf24a</stEvt:instanceID>
+                                       <stEvt:when>2026-03-24T12:46:42-05:00</stEvt:when>
+                                       <stEvt:softwareAgent>Adobe Illustrator 30.2 (Windows)</stEvt:softwareAgent>
+                                       <stEvt:changed>/</stEvt:changed>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpMM:History>
+                              <xmpMM:Manifest>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Usuarios\dniquen\Downloads\PRODUCTOS\fondo cel.png</stRef:filePath>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Usuarios\dniquen\Downloads\image-Photoroom (14).png</stRef:filePath>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Avisos Periódico\PRODUCTOS\Bases y Productos\MARCAS\ALFANO\logo-alfano.png</stRef:filePath>
+                                          <stRef:documentID>0</stRef:documentID>
+                                          <stRef:instanceID>0</stRef:instanceID>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Avisos Periódico\PRODUCTOS\Bases y Productos\MARCAS\ALFANO\logo-alfano.png</stRef:filePath>
+                                          <stRef:documentID>0</stRef:documentID>
+                                          <stRef:instanceID>0</stRef:instanceID>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                                       <stMfs:reference rdf:parseType="Resource">
+                                          <stRef:filePath>D:\Avisos Periódico\PRODUCTOS\Bases y Productos\consolidado de bases\bases 12x1\10x2 - Ventiladores.jpg</stRef:filePath>
+                                          <stRef:documentID>0</stRef:documentID>
+                                          <stRef:instanceID>0</stRef:instanceID>
+                                       </stMfs:reference>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpMM:Manifest>
+                              <xmpMM:Ingredients>
+                                 <rdf:Bag>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stRef:filePath>D:\Usuarios\dniquen\Downloads\PRODUCTOS\fondo cel.png</stRef:filePath>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stRef:filePath>D:\Usuarios\dniquen\Downloads\image-Photoroom (14).png</stRef:filePath>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stRef:filePath>D:\Avisos Periódico\PRODUCTOS\Bases y Productos\MARCAS\ALFANO\logo-alfano.png</stRef:filePath>
+                                       <stRef:documentID>0</stRef:documentID>
+                                       <stRef:instanceID>0</stRef:instanceID>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stRef:filePath>D:\Avisos Periódico\PRODUCTOS\Bases y Productos\consolidado de bases\bases 12x1\10x2 - Ventiladores.jpg</stRef:filePath>
+                                       <stRef:documentID>0</stRef:documentID>
+                                       <stRef:instanceID>0</stRef:instanceID>
+                                    </rdf:li>
+                                 </rdf:Bag>
+                              </xmpMM:Ingredients>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:illustrator="http://ns.adobe.com/illustrator/1.0/">
+                              <illustrator:StartupProfile>Print</illustrator:StartupProfile>
+                              <illustrator:CreatorSubTool>Adobe Illustrator</illustrator:CreatorSubTool>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+                                 xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#"
+                                 xmlns:xmpG="http://ns.adobe.com/xap/1.0/g/">
+                              <xmpTPg:HasVisibleOverprint>False</xmpTPg:HasVisibleOverprint>
+                              <xmpTPg:HasVisibleTransparency>True</xmpTPg:HasVisibleTransparency>
+                              <xmpTPg:NPages>1</xmpTPg:NPages>
+                              <xmpTPg:MaxPageSize rdf:parseType="Resource">
+                                 <stDim:w>6.199999</stDim:w>
+                                 <stDim:h>24.900009</stDim:h>
+                                 <stDim:unit>Centimeters</stDim:unit>
+                              </xmpTPg:MaxPageSize>
+                              <xmpTPg:PlateNames>
+                                 <rdf:Seq>
+                                    <rdf:li>Cyan</rdf:li>
+                                    <rdf:li>Magenta</rdf:li>
+                                    <rdf:li>Yellow</rdf:li>
+                                    <rdf:li>Black</rdf:li>
+                                 </rdf:Seq>
+                              </xmpTPg:PlateNames>
+                              <xmpTPg:SwatchGroups>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <xmpG:groupName>Grupo de muestras por defecto</xmpG:groupName>
+                                       <xmpG:groupType>0</xmpG:groupType>
+                                       <xmpG:Colorants>
+                                          <rdf:Seq>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=75 M=100 Y=0 K=25</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>75.000000</xmpG:cyan>
+                                                <xmpG:magenta>100.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>25.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=100 Y=100 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>100.000000</xmpG:magenta>
+                                                <xmpG:yellow>100.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=30 Y=100 K=0 2</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>30.000001</xmpG:magenta>
+                                                <xmpG:yellow>100.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=100</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>74.508274</xmpG:cyan>
+                                                <xmpG:magenta>65.221632</xmpG:magenta>
+                                                <xmpG:yellow>62.151521</xmpG:yellow>
+                                                <xmpG:black>81.380939</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>R=220 G=10 B=10</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>4.101625</xmpG:cyan>
+                                                <xmpG:magenta>99.725336</xmpG:magenta>
+                                                <xmpG:yellow>98.425263</xmpG:yellow>
+                                                <xmpG:black>0.784314</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=0 3</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=100 2</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>76.696420</xmpG:cyan>
+                                                <xmpG:magenta>67.467761</xmpG:magenta>
+                                                <xmpG:yellow>62.951094</xmpG:yellow>
+                                                <xmpG:black>85.778588</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>R=255 G=255 B=255</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=85 M=40 Y=95 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>81.335163</xmpG:cyan>
+                                                <xmpG:magenta>29.159990</xmpG:magenta>
+                                                <xmpG:yellow>89.492637</xmpG:yellow>
+                                                <xmpG:black>15.579461</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=45 M=0 Y=90 K=0</xmpG:swatchName>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:tint>100.000000</xmpG:tint>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:cyan>45.270464</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>90.096891</xmpG:yellow>
+                                                <xmpG:black>0.000000</xmpG:black>
+                                             </rdf:li>
+                                          </rdf:Seq>
+                                       </xmpG:Colorants>
+                                    </rdf:li>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <xmpG:groupName>Grises</xmpG:groupName>
+                                       <xmpG:groupType>1</xmpG:groupType>
+                                       <xmpG:Colorants>
+                                          <rdf:Seq>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=100</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>100.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=90</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>89.999400</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=80</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>79.998800</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=70</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>69.999700</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=60</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>59.999100</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=50</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>50.000000</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=40</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>39.999400</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=30</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>29.998800</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=20</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>19.999700</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=10</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>9.999100</xmpG:black>
+                                             </rdf:li>
+                                             <rdf:li rdf:parseType="Resource">
+                                                <xmpG:swatchName>C=0 M=0 Y=0 K=5</xmpG:swatchName>
+                                                <xmpG:mode>CMYK</xmpG:mode>
+                                                <xmpG:type>PROCESS</xmpG:type>
+                                                <xmpG:cyan>0.000000</xmpG:cyan>
+                                                <xmpG:magenta>0.000000</xmpG:magenta>
+                                                <xmpG:yellow>0.000000</xmpG:yellow>
+                                                <xmpG:black>4.998800</xmpG:black>
+                                             </rdf:li>
+                                          </rdf:Seq>
+                                       </xmpG:Colorants>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpTPg:SwatchGroups>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+                              <pdf:Producer>Adobe PDF library 18.00</pdf:Producer>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/">
+                              <xmpRights:Marked>False</xmpRights:Marked>
+                           </rdf:Description>
+                        </rdf:RDF>
+                     </x:xmpmeta>
+                     <?xpacket end="r"?>]]>
+                  </Contents>
+               </Properties>
+            </MetadataPacketPreference>
+            <Link Self="udb3" WWoi="$ID/4240339" AssetURL="$ID/" AssetID="$ID/"
+               LinkResourceURI="sc:4240339"
+               LinkResourceFormat="$ID/Adobe Portable Document Format (PDF)"
+               StoredState="Normal" LinkClassID="35906" LinkClientID="257"
+               LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true"
+               CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport"
+               ExportPolicy="NoAutoExport" LinkImportStamp="file 134188487160000000 330312"
+               LinkImportModificationTime="2026-03-24T12:58:36"
+               LinkImportTime="2026-03-24T13:31:42" LinkResourceSize="0~50a48" />
+            <ClippingPathSettings ClippingType="None" InvertPath="false"
+               IncludeInsideEdges="false" RestrictToFrame="false" UseHighResolutionImage="true"
+               Threshold="25" Tolerance="2" InsetFrame="0" AppliedPathName="$ID/" Index="-1" />
+            <GraphicLayerOption UpdateLinkOption="KeepOverrides" />
+         </PDF>
+      </Rectangle>
+      <TextFrame Self="udca" ParentStory="udb8" PreviousTextFrame="n" NextTextFrame="n"
+         ContentType="TextType" ElementLabel="body" GradientFillStart="0 0"
+         GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0"
+         GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u507" Locked="false"
+         LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0"
+         GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0"
+         AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" Visible="true" Name="$ID/"
+         ItemTransform="1 0 0 1 -1060.1574803149606 -349.1881299212599">
+         <Properties>
+            <SplineEditions type="list">
+               <ListItem type="string">3</ListItem>
+            </SplineEditions>
+            <PathGeometry>
+               <GeometryPathType PathOpen="false">
+                  <PathPointArray>
+                     <PathPointType Anchor="-76.53543307086613 -7.268562992125965"
+                        LeftDirection="-76.53543307086613 -7.268562992125965"
+                        RightDirection="-76.53543307086613 -7.268562992125965" />
+                     <PathPointType Anchor="-76.53543307086613 15.77249999999998"
+                        LeftDirection="-76.53543307086613 15.77249999999998"
+                        RightDirection="-76.53543307086613 15.77249999999998" />
+                     <PathPointType Anchor="162.99212598425197 15.77249999999998"
+                        LeftDirection="162.99212598425197 15.77249999999998"
+                        RightDirection="162.99212598425197 15.77249999999998" />
+                     <PathPointType Anchor="162.99212598425197 -7.268562992125965"
+                        LeftDirection="162.99212598425197 -7.268562992125965"
+                        RightDirection="162.99212598425197 -7.268562992125965" />
+                  </PathPointArray>
+               </GeometryPathType>
+            </PathGeometry>
+         </Properties>
+         <TextFramePreference TextColumnFixedWidth="239.5275590551181" />
+         <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+            TextWrapSide="BothSides" TextWrapMode="None">
+            <Properties>
+               <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+            </Properties>
+         </TextWrapPreference>
+      </TextFrame>
+      <Rectangle Self="udd8" Geoimtw="$ID/1" Guid="$ID/" VersionGuid="$ID/"
+         ContentType="GraphicType" StoryTitle="$ID/" ElementLabel="graphic"
+         GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0"
+         GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0"
+         ItemLayer="u507" Locked="false" LocalDisplaySetting="Default"
+         GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0"
+         GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" Visible="true"
+         Name="$ID/" ItemTransform="1 0 0 1 -311.50884391003706 28.06250708872875">
+         <Properties>
+            <SplineEditions type="list">
+               <ListItem type="string">3</ListItem>
+            </SplineEditions>
+            <PathGeometry>
+               <GeometryPathType PathOpen="false">
+                  <PathPointArray>
+                     <PathPointType Anchor="-279.51477813720703 -353.1963653564453"
+                        LeftDirection="-279.51477813720703 -353.1963653564453"
+                        RightDirection="-279.51477813720703 -353.1963653564453" />
+                     <PathPointType Anchor="-279.51477813720703 353.1963653564453"
+                        LeftDirection="-279.51477813720703 353.1963653564453"
+                        RightDirection="-279.51477813720703 353.1963653564453" />
+                     <PathPointType Anchor="279.51477813720703 353.1963653564453"
+                        LeftDirection="279.51477813720703 353.1963653564453"
+                        RightDirection="279.51477813720703 353.1963653564453" />
+                     <PathPointType Anchor="279.51477813720703 -353.1963653564453"
+                        LeftDirection="279.51477813720703 -353.1963653564453"
+                        RightDirection="279.51477813720703 -353.1963653564453" />
+                  </PathPointArray>
+               </GeometryPathType>
+            </PathGeometry>
+         </Properties>
+         <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+            TextWrapSide="BothSides" TextWrapMode="None">
+            <Properties>
+               <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+            </Properties>
+            <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+               ContourPathName="$ID/" />
+         </TextWrapPreference>
+         <InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+         <PDF Self="udd3" GrayVectorPolicy="IgnoreAll" RGBVectorPolicy="IgnoreAll"
+            CMYKVectorPolicy="IgnoreAll" LocalDisplaySetting="Default"
+            ImageTypeName="$ID/Adobe Portable Document Format (PDF)"
+            AppliedObjectStyle="ObjectStyle/$ID/[None]"
+            ItemTransform="1 0 0 1 -374.95323944091797 -684.0903778076172" ElementLabel="$ID/"
+            Visible="true" Name="$ID/">
+            <Properties>
+               <GraphicBounds Left="95.43846130371094" Top="330.8940124511719"
+                  Right="654.468017578125" Bottom="1037.2867431640625" />
+               <SplineEditions type="list">
+               </SplineEditions>
+            </Properties>
+            <TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false"
+               TextWrapSide="BothSides" TextWrapMode="None">
+               <Properties>
+                  <TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+               </Properties>
+               <ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false"
+                  ContourPathName="$ID/" />
+            </TextWrapPreference>
+            <PDFAttribute PageNumber="1" PDFCrop="CropContentVisibleLayers"
+               TransparentBackground="true" />
+            <MetadataPacketPreference>
+               <Properties>
+                  <Contents>
+                     <![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+                     <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.0-c060 61.134777, 2010/02/12-17:32:00        ">
+                        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+                              <xmp:CreateDate>2026-03-24T17:10:28-05:00</xmp:CreateDate>
+                              <xmp:MetadataDate>2026-03-24T17:10:29-05:00</xmp:MetadataDate>
+                              <xmp:ModifyDate>2026-03-24T17:10:29-05:00</xmp:ModifyDate>
+                              <xmp:CreatorTool>Adobe InDesign 17.1 (Windows)</xmp:CreatorTool>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+                                 xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
+                                 xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#">
+                              <xmpMM:InstanceID>uuid:a5d48f10-8791-45ed-baf8-3f1b006a5872</xmpMM:InstanceID>
+                              <xmpMM:OriginalDocumentID>adobe:docid:indd:109fd852-a3d9-11e0-a395-b493a552c4a4</xmpMM:OriginalDocumentID>
+                              <xmpMM:DocumentID>xmp.id:3acb7a3b-18f4-0d48-ba64-255b16536e77</xmpMM:DocumentID>
+                              <xmpMM:RenditionClass>proof:pdf</xmpMM:RenditionClass>
+                              <xmpMM:DerivedFrom rdf:parseType="Resource">
+                                 <stRef:instanceID>xmp.iid:11192c03-a040-634b-9566-02922798e51f</stRef:instanceID>
+                                 <stRef:documentID>xmp.did:4ab95907-5cac-7141-9ed6-f129cdf3cccd</stRef:documentID>
+                                 <stRef:originalDocumentID>adobe:docid:indd:109fd852-a3d9-11e0-a395-b493a552c4a4</stRef:originalDocumentID>
+                                 <stRef:renditionClass>default</stRef:renditionClass>
+                              </xmpMM:DerivedFrom>
+                              <xmpMM:History>
+                                 <rdf:Seq>
+                                    <rdf:li rdf:parseType="Resource">
+                                       <stEvt:action>converted</stEvt:action>
+                                       <stEvt:parameters>from application/x-indesign to application/pdf</stEvt:parameters>
+                                       <stEvt:softwareAgent>Adobe InDesign 17.1 (Windows)</stEvt:softwareAgent>
+                                       <stEvt:changed>/</stEvt:changed>
+                                       <stEvt:when>2026-03-24T17:10:28-05:00</stEvt:when>
+                                    </rdf:li>
+                                 </rdf:Seq>
+                              </xmpMM:History>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:dc="http://purl.org/dc/elements/1.1/">
+                              <dc:format>application/pdf</dc:format>
+                           </rdf:Description>
+                           <rdf:Description rdf:about=""
+                                 xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+                              <pdf:Producer>Adobe PDF Library 16.0.5</pdf:Producer>
+                              <pdf:Trapped>False</pdf:Trapped>
+                           </rdf:Description>
+                        </rdf:RDF>
+                     </x:xmpmeta>
+                     <?xpacket end="r"?>]]>
+                  </Contents>
+               </Properties>
+            </MetadataPacketPreference>
+            <Link Self="udd7" AssetURL="$ID/" AssetID="$ID/"
+               LinkResourceURI="file://10.0.0.11/InControl/04%20-%20Fixed%20Pages/2%20-%20Libero/MIERCOLES%2025%20MARZO%202026/MIERCOLES%2025%20marzo%2026.pdf"
+               LinkResourceFormat="$ID/Adobe Portable Document Format (PDF)"
+               StoredState="Normal" LinkClassID="35906" LinkClientID="257"
+               LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true"
+               CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport"
+               ExportPolicy="NoAutoExport" LinkImportStamp="file 134188638292433992 1067187"
+               LinkImportModificationTime="2026-03-24T17:10:29"
+               LinkImportTime="2026-03-24T17:32:09" LinkResourceSize="0~1048b3" />
+            <ClippingPathSettings ClippingType="None" InvertPath="false"
+               IncludeInsideEdges="false" RestrictToFrame="false" UseHighResolutionImage="true"
+               Threshold="25" Tolerance="2" InsetFrame="0" AppliedPathName="$ID/" Index="-1" />
+            <GraphicLayerOption UpdateLinkOption="KeepOverrides" />
+         </PDF>
+      </Rectangle>
+   </Spread>
+</idPkg:Spread>
