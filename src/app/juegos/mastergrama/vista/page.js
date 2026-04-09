@@ -7,7 +7,6 @@ export default function MastergramaVistaJugador() {
     const ROWS = 18;
     const COLS = 20;
     const CELL_SIZE = 50;
-    const SNAP_SIZE = 10;
     const BOARD_WIDTH = COLS * CELL_SIZE;
     const BOARD_HEIGHT = ROWS * CELL_SIZE;
 
@@ -15,34 +14,14 @@ export default function MastergramaVistaJugador() {
     const [respuestas, setRespuestas] = useState({});
     const [hasMounted, setHasMounted] = useState(false);
 
-    // Mantenemos estos estados para que el renderizado de los elementos no cambie
-    const [activeId] = useState(null);
-    const [isGameMode] = useState(true);
-
     useEffect(() => {
         setHasMounted(true);
-        const layoutLocal = localStorage.getItem("mastergrama_layout");
-
-        try {
-            if (layoutLocal) {
-                const parsedLocal = JSON.parse(layoutLocal);
-                if (Array.isArray(parsedLocal) && parsedLocal.length > 0) {
-                    setPistasColocadas(parsedLocal);
-                } else {
-                    setPistasColocadas(diseñoBase || []);
-                }
-            } else {
-                setPistasColocadas(diseñoBase || []);
-            }
-        } catch (error) {
-            setPistasColocadas(diseñoBase || []);
-        }
-
+        setPistasColocadas(diseñoBase || []);
         const respuestasGuardadas = localStorage.getItem("mastergrama_respuestas_jugador");
         if (respuestasGuardadas) {
             setRespuestas(JSON.parse(respuestasGuardadas));
         }
-    }, [diseñoBase]);
+    }, []);
 
     useEffect(() => {
         if (hasMounted) {
@@ -65,7 +44,6 @@ export default function MastergramaVistaJugador() {
                 Mastergrama
             </h1>
 
-            {/* ÁREA CENTRAL ÚNICA */}
             <div className="flex flex-col items-center no-select-area">
                 <div
                     className="relative bg-white shadow-2xl border-2 border-slate-800"
@@ -76,14 +54,20 @@ export default function MastergramaVistaJugador() {
                         backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
                     }}
                 >
-                    {/* CAPA DE INPUTS */}
+                    {/* --- CAPA 1: LOS INPUTS (Van abajo) --- */}
                     {Array.from({ length: ROWS * COLS }).map((_, i) => {
                         const r = Math.floor(i / COLS); const c = i % COLS;
                         return (
                             <input
                                 key={i}
                                 className="absolute border border-transparent text-center font-bold text-xl uppercase outline-none focus:bg-yellow-50/50 text-blue-900 bg-transparent"
-                                style={{ left: c * CELL_SIZE, top: r * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE, zIndex: 10 }}
+                                style={{
+                                    left: c * CELL_SIZE,
+                                    top: r * CELL_SIZE,
+                                    width: CELL_SIZE,
+                                    height: CELL_SIZE,
+                                    zIndex: 1 // Capa base
+                                }}
                                 maxLength={1}
                                 value={respuestas[`${r}-${c}`] || ""}
                                 onChange={(e) => setRespuestas({ ...respuestas, [`${r}-${c}`]: e.target.value.toUpperCase() })}
@@ -91,20 +75,20 @@ export default function MastergramaVistaJugador() {
                         );
                     })}
 
-                    {/* CAPA DE PISTAS */}
+                    {/* --- CAPA 2: LAS PISTAS E IMÁGENES (Van arriba, igual que en tu editor) --- */}
                     {pistasColocadas.map((pista) => (
                         <div key={pista.id}
                             className={`absolute flex items-center justify-center transition-all duration-75
                             ${pista.type === 'flecha' || pista.type === 'flecha_pista' || pista.type === 'pared' ? 'bg-transparent border-transparent' : 'border border-slate-400 bg-white shadow-sm'}
-                            ${activeId === pista.id ? 'z-[500] border-blue-600 ring-2 ring-blue-500/20' : 'z-5'} 
-                            pointer-events-none`}
+                            pointer-events-none`} // Esto hace que el clic pase al input de abajo
                             style={{
                                 left: pista.x,
                                 top: pista.y,
                                 width: pista.w,
                                 height: pista.h,
                                 transform: pista.type === 'pared' ? 'none' : `rotate(${pista.rotate}deg)`,
-                                transformOrigin: 'center center'
+                                transformOrigin: 'center center',
+                                zIndex: 10 // Al estar en zIndex 10, tapan visualmente al input y su cursor
                             }}
                         >
                             {pista.type === 'pared' ? (
@@ -134,7 +118,7 @@ export default function MastergramaVistaJugador() {
                 </div>
 
                 <button
-                    onClick={() => { if (confirm("¿Reiniciar progreso de juego?")) setRespuestas({}); }}
+                    onClick={() => { if (confirm("¿Reiniciar progreso?")) setRespuestas({}); }}
                     className="mt-8 px-6 py-2 bg-slate-200 text-slate-600 rounded-full font-bold text-[10px] hover:bg-red-100 transition-all uppercase tracking-widest"
                 >
                     Reiniciar progreso
