@@ -114,7 +114,7 @@ export default function MastergramaVistaJugador() {
                         );
                     })}
 
-                    {/* --- CAPA 2: PISTAS (Igual que antes) --- */}
+                    {/* --- CAPA 2: PISTAS --- */}
                     {pistasColocadas.map((pista) => (
                         <div key={pista.id}
                             className={`absolute flex items-center justify-center pointer-events-none 
@@ -132,7 +132,11 @@ export default function MastergramaVistaJugador() {
                                     {pista.src && <img src={pista.src} className="w-full h-full object-cover" />}
                                 </div>
                             ) : pista.type === 'pista' ? (
-                                <textarea className="w-full h-full bg-transparent border-none text-center text-black text-[6px] uppercase leading-tight no-scrollbar font-normal pointer-events-none" value={pista.text} readOnly />
+                                <div className="w-full h-full flex items-center justify-center p-1 overflow-hidden">
+                                    <span className="text-black text-[6px] uppercase leading-tight text-center break-words font-normal antialiased">
+                                        {pista.text}
+                                    </span>
+                                </div>
                             ) : (
                                 <span className={`${pista.type === 'flecha_pista' ? 'text-black' : 'text-orange-500'} font-black`} style={{ fontSize: `${Math.min(pista.w, pista.h) * 0.9}px` }}>{pista.text}</span>
                             )}

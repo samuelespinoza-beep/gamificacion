@@ -1,9 +1,12 @@
 "use client";
 import React, { useState, useMemo, useEffect, useCallback, useRef } from "react";
-import masterData from "@/components/Crucigrama/data.json";
 import diseñoBase from "@/components/Crucigrama/mi-mastergrama.json";
 
 export default function MastergramaLienzoLibre() {
+    const [archivosDisponibles, setArchivosDisponibles] = useState([]);
+    const [archivoSeleccionado, setArchivoSeleccionado] = useState("");
+    const [masterDataDinamico, setMasterDataDinamico] = useState([]);
+
     const ROWS = 18;
     const COLS = 20;
     const CELL_SIZE = 50;
@@ -20,42 +23,40 @@ export default function MastergramaLienzoLibre() {
     const [respuestas, setRespuestas] = useState({});
 
     const fileInputRef = useRef(null);
-    const importFileRef = useRef(null); // Ref para importar JSON
+    const importFileRef = useRef(null);
     const [pistaIdParaImagen, setPistaIdParaImagen] = useState(null);
 
     const TIPOS_FLECHA = ["→", "↓", "↘", "↴", "↳", "➔", "↔", "↕"];
     const FLECHAS_PEQUENAS = ["→", "↓", "←", "↑", "↗", "↘", "↙", "↖"];
 
-    // --- PERSISTENCIA LOCAL ---
-    // --- EFECTO 1: CARGAR DATOS AL INICIAR ---
     useEffect(() => {
-        // 1. Intentamos obtener del localStorage
+        fetch('/api/listar-ediciones')
+            .then(res => res.json())
+            .then(data => setArchivosDisponibles(data))
+            .catch(err => console.error("Error cargando lista de archivos:", err));
+    }, []);
+
+    useEffect(() => {
         const layoutLocal = localStorage.getItem("mastergrama_layout");
         const respuestasGuardadas = localStorage.getItem("mastergrama_respuestas");
 
         try {
             if (layoutLocal) {
                 const parsedLocal = JSON.parse(layoutLocal);
-                // Si el localStorage tiene el diseño (arreglo), lo cargamos
                 if (Array.isArray(parsedLocal)) {
                     setPistasColocadas(parsedLocal);
                 }
             } else if (diseñoBase) {
-                // 2. Si NO hay localStorage, usamos el diseñoBase (tu archivo JSON)
-                // Verificamos si el JSON tiene el nuevo formato de objeto
                 if (diseñoBase.diseno && Array.isArray(diseñoBase.diseno)) {
                     setPistasColocadas(diseñoBase.diseno);
-                    // Si el JSON trae respuestas y el localStorage está vacío, las cargamos
                     if (!respuestasGuardadas && diseñoBase.respuestas) {
                         setRespuestas(diseñoBase.respuestas);
                     }
                 } else if (Array.isArray(diseñoBase)) {
-                    // Por si el JSON todavía tuviera el formato antiguo
                     setPistasColocadas(diseñoBase);
                 }
             }
 
-            // 3. Cargar respuestas del localStorage (prioridad sobre el JSON)
             if (respuestasGuardadas) {
                 setRespuestas(JSON.parse(respuestasGuardadas));
             }
@@ -74,9 +75,7 @@ export default function MastergramaLienzoLibre() {
         localStorage.setItem("mastergrama_respuestas", JSON.stringify(respuestas));
     }, [respuestas]);
 
-    // --- FUNCIONES DE EXPORTACIÓN / IMPORTACIÓN ---
     const exportarJSON = () => {
-        // Creamos un objeto único que contiene todo
         const dataCompleta = {
             diseno: pistasColocadas,
             respuestas: respuestas
@@ -100,7 +99,6 @@ export default function MastergramaLienzoLibre() {
             try {
                 const json = JSON.parse(event.target.result);
 
-                // Verificamos si es el nuevo formato (objeto con propiedad .diseno)
                 if (json.diseno && Array.isArray(json.diseno)) {
                     setPistasColocadas(json.diseno);
                     if (json.respuestas) {
@@ -108,7 +106,6 @@ export default function MastergramaLienzoLibre() {
                     }
                     alert("Proyecto completo cargado con éxito");
                 }
-                // Verificamos si es el formato antiguo (solo el arreglo)
                 else if (Array.isArray(json)) {
                     setPistasColocadas(json);
                     alert("Diseño importado (sin respuestas)");
@@ -219,10 +216,54 @@ export default function MastergramaLienzoLibre() {
         registrarPaso([...pistasColocadas, { id: Date.now(), text: texto, type: tipo, x, y, w: initW, h: initH, rotate: 0, src: null }]);
     };
 
+    const prepararNuevoMastergrama = () => {
+        if (window.confirm("¿Deseas crear un nuevo Mastergrama? Se limpiará todo el diseño actual del lienzo.")) {
+            setPistasColocadas([]); // Limpia los elementos
+            setRespuestas({});      // Limpia las letras escritas
+            setHistorial([]);       // Limpia el historial de deshacer
+
+            // Limpiamos también el localStorage para empezar de cero realmente
+            localStorage.removeItem("mastergrama_layout");
+            localStorage.removeItem("mastergrama_respuestas");
+
+            alert("Lienzo listo para un nuevo diseño.");
+        }
+    };
+
+    const cargarPistasDeArchivo = async (nombreArchivo) => {
+        if (!nombreArchivo) return;
+        try {
+            // Buscamos el archivo en la carpeta pública
+            const res = await fetch(`/stories-mastergrama/${nombreArchivo}`);
+            const data = await res.json();
+            setMasterDataDinamico(data);
+            setArchivoSeleccionado(nombreArchivo);
+        } catch (error) {
+            alert("Error al cargar el archivo de pistas");
+        }
+    };
+
+    const cargarHistoriasDeArchivo = async (nombreArchivo) => {
+        if (!nombreArchivo) return;
+        try {
+            // Usamos la API para leer el archivo desde src/components/...
+            const res = await fetch(`/api/leer-pistas?archivo=${nombreArchivo}`);
+            const data = await res.json();
+
+            if (data.error) throw new Error(data.error);
+
+            setMasterDataDinamico(data); // Actualiza las pistas laterales
+            setArchivoSeleccionado(nombreArchivo);
+        } catch (error) {
+            console.error(error);
+            alert("Error al cargar el archivo de historias");
+        }
+    };
+
     const pistasDesdeStories = useMemo(() => {
-        if (!Array.isArray(masterData)) return [];
-        return masterData.map(d => d.content).filter(texto => texto && texto.length > 2);
-    }, []);
+        if (!Array.isArray(masterDataDinamico)) return [];
+        return masterDataDinamico.map(d => d.content).filter(texto => texto && texto.length > 2);
+    }, [masterDataDinamico]);
     const pistasIzquierda = useMemo(() => pistasDesdeStories.filter((_, i) => i % 2 === 0), [pistasDesdeStories]);
     const pistasDerecha = useMemo(() => pistasDesdeStories.filter((_, i) => i % 2 !== 0), [pistasDesdeStories]);
 
@@ -239,6 +280,29 @@ export default function MastergramaLienzoLibre() {
 
             {/* COLUMNA IZQUIERDA */}
             <div className="w-64 flex flex-col gap-4 h-[90vh]">
+                {/* --- NUEVO BLOQUE: CARGAR EDICIÓN DINÁMICA --- */}
+                <div className="bg-white p-3 rounded shadow border">
+                    <h2 className="font-bold text-blue-600 mb-2 border-b uppercase text-[10px]">📂 Cargar Edición</h2>
+                    <div className="flex flex-col gap-2">
+                        <select
+                            className="w-full border p-1 text-[10px] rounded bg-slate-50 font-bold outline-none cursor-pointer"
+                            value={archivoSeleccionado}
+                            onChange={(e) => cargarHistoriasDeArchivo(e.target.value)}
+                        >
+                            <option value="">-- Seleccionar JSON --</option>
+                            {archivosDisponibles.map(archivo => (
+                                <option key={archivo} value={archivo}>
+                                    {archivo.replace('.json', '')}
+                                </option>
+                            ))}
+                        </select>
+                        <p className="text-[8px] text-slate-400 italic">
+                            {archivoSeleccionado ? `Cargado: ${archivoSeleccionado}` : "Selecciona una fecha para ver las pistas"}
+                        </p>
+                    </div>
+                </div>
+
+                {/* --- BLOQUE: HERRAMIENTAS (Mantenido) --- */}
                 <div className="bg-white p-3 rounded shadow border">
                     <h2 className="font-bold text-purple-600 mb-2 border-b uppercase text-xs">Herramientas</h2>
                     <div className="flex flex-col gap-2">
@@ -249,6 +313,13 @@ export default function MastergramaLienzoLibre() {
                             <div className="w-4 h-1 bg-white"></div> Pared
                         </div>
 
+                        <button
+                            onClick={prepararNuevoMastergrama}
+                            className="w-full bg-indigo-500 text-white p-2 rounded text-[10px] font-bold hover:bg-indigo-600 uppercase shadow-sm transition-all"
+                        >
+                            ✨ Nuevo Mastergrama
+                        </button>
+
                         <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t">
                             <button onClick={exportarJSON} className="bg-blue-600 text-white p-1 rounded text-[9px] font-bold hover:bg-blue-700 uppercase italic">📤 Exportar</button>
                             <button onClick={() => importFileRef.current.click()} className="bg-green-600 text-white p-1 rounded text-[9px] font-bold hover:bg-green-700 uppercase italic">📥 Importar</button>
@@ -257,6 +328,7 @@ export default function MastergramaLienzoLibre() {
                     </div>
                 </div>
 
+                {/* --- BLOQUE: FLECHAS (Mantenido) --- */}
                 <div className="bg-white p-3 rounded shadow border">
                     <h2 className="font-bold text-slate-800 mb-2 border-b uppercase text-xs">Flechas de Pista</h2>
                     <div className="grid grid-cols-4 gap-1">
@@ -267,6 +339,7 @@ export default function MastergramaLienzoLibre() {
                     </div>
                 </div>
 
+                {/* --- BLOQUE: STORIES (Dinámico basado en el JSON seleccionado) --- */}
                 <div className="bg-white p-3 rounded shadow border overflow-hidden flex flex-col no-scrollbar">
                     <h2 className="font-bold text-red-500 mb-2 border-b uppercase text-[10px]">Stories</h2>
                     <div className="overflow-y-auto space-y-2 custom-scrollbar no-scrollbar">
@@ -274,6 +347,9 @@ export default function MastergramaLienzoLibre() {
                             <div key={idx} draggable onDragStart={(e) => { e.dataTransfer.setData("content", pista); e.dataTransfer.setData("type", "pista"); }}
                                 className="bg-slate-50 border p-2 text-[9px] text-blue-800 cursor-grab hover:bg-red-50 rounded uppercase font-bold leading-tight">{pista}</div>
                         ))}
+                        {pistasIzquierda.length === 0 && (
+                            <p className="text-[8px] text-slate-400 text-center py-4 italic">Selecciona una edición arriba para cargar pistas</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -339,11 +415,18 @@ export default function MastergramaLienzoLibre() {
                                     )}
                                 </div>
                             ) : pista.type === 'pista' ? (
-                                <div className="w-full h-full flex items-center justify-center p-1 overflow-hidden pointer-events-none">
+                                <div className="w-full h-full flex items-center justify-center p-0 overflow-hidden pointer-events-none">
                                     <textarea
-                                        className="w-full h-full bg-transparent border-none outline-none resize-none text-center text-black text-[6px] uppercase leading-tight no-scrollbar font-normal antialiased"
+                                        className="w-full bg-transparent border-none outline-none resize-none text-center text-black text-[6px] uppercase leading-tight no-scrollbar font-normal antialiased"
                                         style={{
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', wordBreak: 'break-word', whiteSpace: 'pre-wrap', height: '100%', padding: '0', margin: '0'
+                                            display: 'block',
+                                            width: '100%',
+                                            textAlign: 'center', // Centrado horizontal
+                                            marginTop: 'auto',   // Ayuda al centrado vertical junto con el flex del padre
+                                            marginBottom: 'auto',
+                                            overflow: 'hidden',
+                                            wordBreak: 'break-word',
+                                            whiteSpace: 'pre-wrap'
                                         }}
                                         value={pista.text}
                                         readOnly
