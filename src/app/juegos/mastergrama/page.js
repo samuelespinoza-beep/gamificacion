@@ -29,37 +29,40 @@ export default function MastergramaLienzoLibre() {
     // --- PERSISTENCIA LOCAL ---
     // --- EFECTO 1: CARGAR DATOS AL INICIAR ---
     useEffect(() => {
-        // Intentamos obtener del localStorage primero
+        // 1. Intentamos obtener del localStorage
         const layoutLocal = localStorage.getItem("mastergrama_layout");
+        const respuestasGuardadas = localStorage.getItem("mastergrama_respuestas");
 
         try {
             if (layoutLocal) {
                 const parsedLocal = JSON.parse(layoutLocal);
-                // Si hay datos locales guardados por el usuario, los usamos
-                if (Array.isArray(parsedLocal) && parsedLocal.length > 0) {
+                // Si el localStorage tiene el diseño (arreglo), lo cargamos
+                if (Array.isArray(parsedLocal)) {
                     setPistasColocadas(parsedLocal);
-                    console.log("Cargado desde LocalStorage");
-                } else {
-                    // Si el localStorage está vacío, usamos el JSON importado
-                    setPistasColocadas(diseñoBase || []);
-                    console.log("LocalStorage vacío, cargando diseñoBase");
                 }
-            } else {
-                // No existe la llave en localStorage (Incógnito / Usuario nuevo)
-                setPistasColocadas(diseñoBase || []);
-                console.log("Sin registro previo, cargando diseñoBase");
+            } else if (diseñoBase) {
+                // 2. Si NO hay localStorage, usamos el diseñoBase (tu archivo JSON)
+                // Verificamos si el JSON tiene el nuevo formato de objeto
+                if (diseñoBase.diseno && Array.isArray(diseñoBase.diseno)) {
+                    setPistasColocadas(diseñoBase.diseno);
+                    // Si el JSON trae respuestas y el localStorage está vacío, las cargamos
+                    if (!respuestasGuardadas && diseñoBase.respuestas) {
+                        setRespuestas(diseñoBase.respuestas);
+                    }
+                } else if (Array.isArray(diseñoBase)) {
+                    // Por si el JSON todavía tuviera el formato antiguo
+                    setPistasColocadas(diseñoBase);
+                }
+            }
+
+            // 3. Cargar respuestas del localStorage (prioridad sobre el JSON)
+            if (respuestasGuardadas) {
+                setRespuestas(JSON.parse(respuestasGuardadas));
             }
         } catch (error) {
-            console.error("Error al cargar el layout:", error);
-            setPistasColocadas(diseñoBase || []);
+            console.error("Error al cargar el layout inicial:", error);
         }
-
-        // Cargar respuestas si existen
-        const respuestasGuardadas = localStorage.getItem("mastergrama_respuestas");
-        if (respuestasGuardadas) {
-            setRespuestas(JSON.parse(respuestasGuardadas));
-        }
-    }, [diseñoBase]); // Se ejecuta cuando el componente nace o el JSON cambia
+    }, [diseñoBase]);
 
     useEffect(() => {
         if (pistasColocadas.length > 0) {
@@ -73,8 +76,15 @@ export default function MastergramaLienzoLibre() {
 
     // --- FUNCIONES DE EXPORTACIÓN / IMPORTACIÓN ---
     const exportarJSON = () => {
-        const dataStr = JSON.stringify(pistasColocadas, null, 2);
+        // Creamos un objeto único que contiene todo
+        const dataCompleta = {
+            diseno: pistasColocadas,
+            respuestas: respuestas
+        };
+
+        const dataStr = JSON.stringify(dataCompleta, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
         const exportFileDefaultName = 'mi-mastergrama.json';
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
@@ -89,9 +99,19 @@ export default function MastergramaLienzoLibre() {
         reader.onload = (event) => {
             try {
                 const json = JSON.parse(event.target.result);
-                if (Array.isArray(json)) {
+
+                // Verificamos si es el nuevo formato (objeto con propiedad .diseno)
+                if (json.diseno && Array.isArray(json.diseno)) {
+                    setPistasColocadas(json.diseno);
+                    if (json.respuestas) {
+                        setRespuestas(json.respuestas);
+                    }
+                    alert("Proyecto completo cargado con éxito");
+                }
+                // Verificamos si es el formato antiguo (solo el arreglo)
+                else if (Array.isArray(json)) {
                     setPistasColocadas(json);
-                    alert("Diseño importado con éxito");
+                    alert("Diseño importado (sin respuestas)");
                 }
             } catch (err) {
                 alert("Error al leer el archivo JSON");
@@ -272,16 +292,27 @@ export default function MastergramaLienzoLibre() {
                     onDrop={onDrop}
                     style={{ width: BOARD_WIDTH, height: BOARD_HEIGHT, backgroundImage: `linear-gradient(#6c6e72ff 1px, transparent 1px), linear-gradient(90deg, #6c6e72ff 1px, transparent 1px)`, backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px` }}
                 >
-                    {isGameMode && Array.from({ length: ROWS * COLS }).map((_, i) => {
-                        const r = Math.floor(i / COLS); const c = i % COLS;
+                    {Array.from({ length: ROWS * COLS }).map((_, i) => {
+                        const r = Math.floor(i / COLS);
+                        const c = i % COLS;
+                        const cellKey = `${r}-${c}`;
                         return (
                             <input
                                 key={i}
-                                className="absolute border border-transparent text-center font-bold text-xl uppercase outline-none focus:bg-yellow-50/50 text-blue-900 bg-transparent"
-                                style={{ left: c * CELL_SIZE, top: r * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE, zIndex: 10 }}
+                                className={`absolute border border-slate-100 text-center font-bold text-xl uppercase outline-none focus:bg-yellow-100/50 text-blue-900 bg-transparent transition-colors ${isGameMode ? 'border-transparent' : 'hover:bg-slate-50'}`}
+                                style={{
+                                    left: c * CELL_SIZE,
+                                    top: r * CELL_SIZE,
+                                    width: CELL_SIZE,
+                                    height: CELL_SIZE,
+                                    zIndex: 5 // Por debajo de las pistas (z-50) pero accesible
+                                }}
                                 maxLength={1}
-                                value={respuestas[`${r}-${c}`] || ""}
-                                onChange={(e) => setRespuestas({ ...respuestas, [`${r}-${c}`]: e.target.value.toUpperCase() })}
+                                value={respuestas[cellKey] || ""}
+                                onChange={(e) => {
+                                    const val = e.target.value.toUpperCase();
+                                    setRespuestas(prev => ({ ...prev, [cellKey]: val }));
+                                }}
                             />
                         );
                     })}
