@@ -203,26 +203,46 @@ export default function MastergramaLienzoLibre() {
     const onDrop = (e) => {
         e.preventDefault();
         if (isGameMode) return;
+
         const texto = e.dataTransfer.getData("content");
         const tipo = e.dataTransfer.getData("type");
         if (!tipo) return;
+
+        // 1. PRIMERO: Calculamos las coordenadas x e y
         const rect = e.currentTarget.getBoundingClientRect();
         const x = Math.round((e.clientX - rect.left - 25) / SNAP_SIZE) * SNAP_SIZE;
         const y = Math.round((e.clientY - rect.top - 25) / SNAP_SIZE) * SNAP_SIZE;
-        let initW = CELL_SIZE; let initH = CELL_SIZE;
+
+        // 2. SEGUNDO: Definimos tamaños iniciales
+        let initW = CELL_SIZE;
+        let initH = CELL_SIZE;
         if (tipo === 'imagen_vacia') { initW = CELL_SIZE * 2; initH = CELL_SIZE * 2; }
         if (tipo === 'pared') { initW = CELL_SIZE; initH = 6; }
         if (tipo === 'flecha_pista') { initW = 30; initH = 30; }
-        registrarPaso([...pistasColocadas, { id: Date.now(), text: texto, type: tipo, x, y, w: initW, h: initH, rotate: 0, src: null }]);
-    };
 
+        // 3. TERCERO: Creamos el objeto (ahora x e y ya existen)
+        const nuevaPista = {
+            id: Date.now(),
+            text: texto,
+            type: tipo,
+            x, // Ya está inicializada arriba
+            y, // Ya está inicializada arriba
+            w: initW,
+            h: initH,
+            rotate: 0,
+            src: null,
+            direction: '↓' // Agregamos la dirección por defecto aquí
+        };
+
+        // 4. CUARTO: Registramos en el estado
+        registrarPaso([...pistasColocadas, nuevaPista]);
+    };
     const prepararNuevoMastergrama = () => {
         if (window.confirm("¿Deseas crear un nuevo Mastergrama? Se limpiará todo el diseño actual del lienzo.")) {
-            setPistasColocadas([]); // Limpia los elementos
-            setRespuestas({});      // Limpia las letras escritas
-            setHistorial([]);       // Limpia el historial de deshacer
+            setPistasColocadas([]);
+            setRespuestas({});
+            setHistorial([]);
 
-            // Limpiamos también el localStorage para empezar de cero realmente
             localStorage.removeItem("mastergrama_layout");
             localStorage.removeItem("mastergrama_respuestas");
 
@@ -245,24 +265,34 @@ export default function MastergramaLienzoLibre() {
 
     const cargarHistoriasDeArchivo = async (nombreArchivo) => {
         if (!nombreArchivo) return;
+
+        const cacheBuster = Date.now();
+
         try {
-            // Usamos la API para leer el archivo desde src/components/...
-            const res = await fetch(`/api/leer-pistas?archivo=${nombreArchivo}`);
+            const res = await fetch(`/api/leer-pistas?archivo=${nombreArchivo}&t=${cacheBuster}`);
             const data = await res.json();
 
-            if (data.error) throw new Error(data.error);
-
-            setMasterDataDinamico(data); // Actualiza las pistas laterales
-            setArchivoSeleccionado(nombreArchivo);
+            if (data && Array.isArray(data)) {
+                setMasterDataDinamico(data);
+                setArchivoSeleccionado(nombreArchivo);
+            } else {
+            }
         } catch (error) {
-            console.error(error);
-            alert("Error al cargar el archivo de historias");
         }
     };
 
     const pistasDesdeStories = useMemo(() => {
-        if (!Array.isArray(masterDataDinamico)) return [];
-        return masterDataDinamico.map(d => d.content).filter(texto => texto && texto.length > 2);
+        if (!Array.isArray(masterDataDinamico) || masterDataDinamico.length === 0) {
+            return [];
+        }
+
+        return masterDataDinamico
+            .map(item => item.content)
+            .filter(texto => {
+                if (!texto) return false;
+                const limpio = texto.trim();
+                return limpio.length > 1 && !limpio.startsWith("<?ACE");
+            });
     }, [masterDataDinamico]);
     const pistasIzquierda = useMemo(() => pistasDesdeStories.filter((_, i) => i % 2 === 0), [pistasDesdeStories]);
     const pistasDerecha = useMemo(() => pistasDesdeStories.filter((_, i) => i % 2 !== 0), [pistasDesdeStories]);
@@ -287,7 +317,10 @@ export default function MastergramaLienzoLibre() {
                         <select
                             className="w-full border p-1 text-[10px] rounded bg-slate-50 font-bold outline-none cursor-pointer"
                             value={archivoSeleccionado}
-                            onChange={(e) => cargarHistoriasDeArchivo(e.target.value)}
+                            onChange={(e) => {
+                                console.log("🖱️ Clic detectado en el select, valor:", e.target.value);
+                                cargarHistoriasDeArchivo(e.target.value);
+                            }}
                         >
                             <option value="">-- Seleccionar JSON --</option>
                             {archivosDisponibles.map(archivo => (
@@ -354,7 +387,6 @@ export default function MastergramaLienzoLibre() {
                 </div>
             </div>
 
-            {/* ÁREA CENTRAL */}
             <div className="flex flex-col items-center flex-1 no-select-area">
                 <div className="flex gap-4 mb-4 items-center">
                     <button onClick={() => setIsGameMode(false)} className={`px-4 py-2 rounded font-bold text-white text-xs ${!isGameMode ? 'bg-indigo-600 shadow-md' : 'bg-slate-400'}`}>⚙️ Editar</button>
@@ -368,6 +400,7 @@ export default function MastergramaLienzoLibre() {
                     onDrop={onDrop}
                     style={{ width: BOARD_WIDTH, height: BOARD_HEIGHT, backgroundImage: `linear-gradient(#6c6e72ff 1px, transparent 1px), linear-gradient(90deg, #6c6e72ff 1px, transparent 1px)`, backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px` }}
                 >
+                    {/* GRILLA DE INPUTS (FONDO) */}
                     {Array.from({ length: ROWS * COLS }).map((_, i) => {
                         const r = Math.floor(i / COLS);
                         const c = i % COLS;
@@ -381,7 +414,7 @@ export default function MastergramaLienzoLibre() {
                                     top: r * CELL_SIZE,
                                     width: CELL_SIZE,
                                     height: CELL_SIZE,
-                                    zIndex: 5 // Por debajo de las pistas (z-50) pero accesible
+                                    zIndex: 5
                                 }}
                                 maxLength={1}
                                 value={respuestas[cellKey] || ""}
@@ -393,17 +426,26 @@ export default function MastergramaLienzoLibre() {
                         );
                     })}
 
+                    {/* RENDERIZADO DE PISTAS Y ELEMENTOS */}
                     {pistasColocadas.map((pista) => (
                         <div key={pista.id}
                             onMouseDown={(e) => startMoving(e, pista)}
                             className={`absolute flex items-center justify-center transition-all duration-75
-                            ${pista.type === 'flecha' || pista.type === 'flecha_pista' || pista.type === 'pared' ? 'bg-transparent border-transparent' : 'border border-slate-400 bg-white shadow-sm'}
-                            ${activeId === pista.id ? 'z-[500] border-blue-600 ring-2 ring-blue-500/20' : 'z-50'} 
-                            group cursor-move`}
-                            style={{ left: pista.x, top: pista.y, width: pista.w, height: pista.h, transform: pista.type === 'pared' ? 'none' : `rotate(${pista.rotate}deg)`, transformOrigin: 'center center' }}
+                                ${pista.type === 'flecha' || pista.type === 'flecha_pista' || pista.type === 'pared' ? 'bg-transparent border-transparent' : 'border border-slate-400 bg-white shadow-sm'}
+                                ${activeId === pista.id ? 'z-[500] border-blue-600 ring-2 ring-blue-500/20' : 'z-50'} 
+                                group cursor-move`}
+                            style={{
+                                left: pista.x,
+                                top: pista.y,
+                                width: pista.w,
+                                height: pista.h,
+                                transform: pista.type === 'pared' ? 'none' : `rotate(${pista.rotate}deg)`,
+                                transformOrigin: 'center center'
+                            }}
                         >
                             {!isGameMode && <div className="absolute inset-0 z-10" />}
 
+                            {/* CONTENIDO SEGÚN TIPO */}
                             {pista.type === 'pared' ? (
                                 <div className="w-full h-full bg-black shadow-sm"></div>
                             ) : pista.type === 'imagen_vacia' ? (
@@ -415,27 +457,37 @@ export default function MastergramaLienzoLibre() {
                                     )}
                                 </div>
                             ) : pista.type === 'pista' ? (
-                                <div className="w-full h-full flex items-center justify-center p-0 overflow-hidden pointer-events-none">
-                                    <textarea
-                                        className="w-full bg-transparent border-none outline-none resize-none text-center text-black text-[6px] uppercase leading-tight no-scrollbar font-normal antialiased"
+                                /* PISTAS DE TEXTO CON FLECHA DINÁMICA */
+                                <div className="w-full h-full flex items-center justify-center p-1 overflow-visible pointer-events-none relative">
+                                    <span className="text-black text-[7px] uppercase leading-tight text-center break-words font-normal antialiased tracking-tighter">
+                                        {pista.text}
+                                    </span>
+
+                                    {/* FLECHA PEGADA: Siempre es ↓ pero cambia su coordenada Y */}
+                                    <div
+                                        className="absolute text-slate-900 select-none flex items-center justify-center pointer-events-none font-normal"
                                         style={{
-                                            display: 'block',
+                                            fontSize: '8px',
                                             width: '100%',
-                                            textAlign: 'center', // Centrado horizontal
-                                            marginTop: 'auto',   // Ayuda al centrado vertical junto con el flex del padre
-                                            marginBottom: 'auto',
-                                            overflow: 'hidden',
-                                            wordBreak: 'break-word',
-                                            whiteSpace: 'pre-wrap'
+                                            height: '20px',
+                                            left: '0',
+                                            transformOrigin: 'center',
+                                            transform: 'scaleY(1.5) scaleX(2.8)',
+
+                                            ...(pista.direction === 'superior'
+                                                ? { top: '-15px' }
+                                                : { bottom: '-15px' }
+                                            )
                                         }}
-                                        value={pista.text}
-                                        readOnly
-                                    />
+                                    >
+                                        ↓
+                                    </div>
                                 </div>
                             ) : (
                                 <span className={`${pista.type === 'flecha_pista' ? 'text-black' : 'text-orange-500'} font-black pointer-events-none`} style={{ fontSize: `${Math.min(pista.w, pista.h) * 0.9}px` }}>{pista.text}</span>
                             )}
 
+                            {/* CONTROLES DE EDICIÓN (SOLO MODO EDITAR) */}
                             {!isGameMode && (
                                 <>
                                     {pista.type !== 'pared' && pista.type !== 'flecha_pista' && (
@@ -448,6 +500,24 @@ export default function MastergramaLienzoLibre() {
                                     )}
                                     <div className="absolute -top-12 left-0 right-0 h-12 hidden group-hover:flex items-start justify-center z-[150]">
                                         <div className="flex gap-2 bg-slate-900 p-1.5 rounded shadow-2xl border border-slate-700">
+
+                                            {/* BOTÓN DE DIRECCIÓN (SOLO PARA PISTAS) */}
+                                            {pista.type === 'pista' && (
+                                                <button
+                                                    onMouseDown={(e) => e.stopPropagation()}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        // Alternamos la ubicación de la flecha
+                                                        const siguientePos = (pista.direction === 'superior') ? 'inferior' : 'superior';
+                                                        updatePistaDirecta(pista.id, { direction: siguientePos });
+                                                    }}
+                                                    className="bg-blue-500 text-white w-7 h-7 rounded flex items-center justify-center text-xs font-bold shadow-sm active:scale-95 transition-transform"
+                                                >
+                                                    {/* Mostramos un icono que indica hacia dónde se moverá la flecha en el siguiente clic */}
+                                                    {pista.direction === 'superior' ? '↓' : '↑'}
+                                                </button>
+                                            )}
+
                                             <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); if (pista.type === 'pared') { registrarPaso(pistasColocadas.map(p => p.id === pista.id ? { ...p, w: p.h, h: p.w } : p)); } else { updatePistaDirecta(pista.id, { rotate: (pista.rotate + 90) % 360 }); } }} className="bg-indigo-600 text-white w-7 h-7 rounded flex items-center justify-center text-xs">↻</button>
                                             <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); registrarPaso(pistasColocadas.filter(p => p.id !== pista.id)); }} className="bg-red-600 text-white w-7 h-7 rounded flex items-center justify-center text-xs">✕</button>
                                         </div>
