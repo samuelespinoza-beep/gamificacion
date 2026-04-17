@@ -7,7 +7,7 @@ export default function MastergramaLienzoLibre() {
     const [archivoSeleccionado, setArchivoSeleccionado] = useState("");
     const [masterDataDinamico, setMasterDataDinamico] = useState([]);
 
-    const ROWS = 18;
+    const ROWS = 24;
     const COLS = 20;
     const CELL_SIZE = 50;
     const SNAP_SIZE = 10;
@@ -22,7 +22,6 @@ export default function MastergramaLienzoLibre() {
     const [isGameMode, setIsGameMode] = useState(false);
     const [respuestas, setRespuestas] = useState({});
 
-    const fileInputRef = useRef(null);
     const importFileRef = useRef(null);
     const [pistaIdParaImagen, setPistaIdParaImagen] = useState(null);
 
@@ -65,11 +64,23 @@ export default function MastergramaLienzoLibre() {
         }
     }, [diseñoBase]);
 
-    useEffect(() => {
-        if (pistasColocadas.length > 0) {
-            localStorage.setItem("mastergrama_layout", JSON.stringify(pistasColocadas));
+useEffect(() => {
+    if (pistasColocadas.length > 0) {
+        // Creamos una copia para guardar, pero quitamos las imágenes pesadas
+        const datosParaGuardar = pistasColocadas.map(p => {
+            if (p.type === 'imagen_vacia' && p.src?.startsWith('data:image')) {
+                return { ...p, src: null }; // No guardamos el Base64
+            }
+            return p;
+        });
+        
+        try {
+            localStorage.setItem("mastergrama_layout", JSON.stringify(datosParaGuardar));
+        } catch (e) {
+            console.error("LocalStorage lleno. No se pudo guardar el layout.");
         }
-    }, [pistasColocadas]);
+    }
+}, [pistasColocadas]);
 
     useEffect(() => {
         localStorage.setItem("mastergrama_respuestas", JSON.stringify(respuestas));
@@ -188,18 +199,6 @@ export default function MastergramaLienzoLibre() {
         setOffset({ x: e.clientX - pista.x, y: e.clientY - pista.y });
     };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file && pistaIdParaImagen) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setPistasColocadas(prev => prev.map(p => p.id === pistaIdParaImagen ? { ...p, src: event.target.result } : p));
-                setPistaIdParaImagen(null);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
     const onDrop = (e) => {
         e.preventDefault();
         if (isGameMode) return;
@@ -305,7 +304,6 @@ export default function MastergramaLienzoLibre() {
                 .custom-scrollbar::-webkit-scrollbar { display: none; }
                 .no-select-area { user-select: none !important; -webkit-user-select: none !important; }
             `}} />
-            <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleImageUpload} />
             <input type="file" ref={importFileRef} className="hidden" accept=".json" onChange={importarJSON} />
 
             {/* COLUMNA IZQUIERDA */}
@@ -408,7 +406,7 @@ export default function MastergramaLienzoLibre() {
                         return (
                             <input
                                 key={i}
-                                className={`absolute border border-slate-100 text-center font-bold text-xl uppercase outline-none focus:bg-yellow-100/50 text-blue-900 bg-transparent transition-colors ${isGameMode ? 'border-transparent' : 'hover:bg-slate-50'}`}
+                                className={`absolute border border-slate-100 text-center font-bold text-xs uppercase outline-none focus:bg-yellow-100/50 text-blue-900 bg-transparent transition-colors ${isGameMode ? 'border-transparent' : 'hover:bg-slate-50'}`}
                                 style={{
                                     left: c * CELL_SIZE,
                                     top: r * CELL_SIZE,
@@ -451,15 +449,29 @@ export default function MastergramaLienzoLibre() {
                             ) : pista.type === 'imagen_vacia' ? (
                                 <div className="w-full h-full relative flex items-center justify-center overflow-hidden">
                                     {pista.src ? (
-                                        <img src={pista.src} className="w-full h-full object-cover" alt="pista" draggable={false} />
+                                        <img 
+                                            src={pista.src} 
+                                            className="w-full h-full object-cover" 
+                                            alt="pista" 
+                                            draggable={false} 
+                                        />
                                     ) : (
-                                        <button onMouseDown={(e) => e.stopPropagation()} onClick={() => { setPistaIdParaImagen(pista.id); fileInputRef.current.click(); }} className="bg-purple-600 text-white text-[8px] px-2 py-1 rounded-full font-bold z-20">+ Imagen</button>
+                                        <button 
+                                            onMouseDown={(e) => e.stopPropagation()} 
+                                            onClick={() => { 
+                                                const url = window.prompt("Pega la URL de S3 (ej: https://files.comercial...):", "https://files.comercial.larepublica.pe/anuncios/prod/"); 
+                                                if (url) updatePistaDirecta(pista.id, { src: url });
+                                            }} 
+                                            className="bg-purple-600 hover:bg-purple-700 text-white text-[8px] px-2 py-1 rounded-full font-bold z-20 shadow-lg transition-colors"
+                                        >
+                                            + Vincular S3
+                                        </button>
                                     )}
                                 </div>
                             ) : pista.type === 'pista' ? (
                                 /* PISTAS DE TEXTO CON FLECHA DINÁMICA */
                                 <div className="w-full h-full flex items-center justify-center p-1 overflow-visible pointer-events-none relative">
-                                    <span className="text-black text-[7px] uppercase leading-tight text-center break-words font-normal antialiased tracking-tighter">
+                                    <span className="text-black text-[6px] uppercase leading-tight text-center break-words font-normal antialiased tracking-tighter">
                                         {pista.text}
                                     </span>
 
@@ -467,17 +479,21 @@ export default function MastergramaLienzoLibre() {
                                     <div
                                         className="absolute text-slate-900 select-none flex items-center justify-center pointer-events-none font-normal"
                                         style={{
-                                            fontSize: '8px',
-                                            width: '100%',
+                                            fontSize: '6px',
+                                            width: '20px',
                                             height: '20px',
-                                            left: '0',
                                             transformOrigin: 'center',
-                                            transform: 'scaleY(1.5) scaleX(2.8)',
-
-                                            ...(pista.direction === 'superior'
-                                                ? { top: '-15px' }
-                                                : { bottom: '-15px' }
-                                            )
+                                            zIndex: 60,
+                                            
+                                            // Lógica de posicionamiento
+                                            ...(pista.direction === 'superior' && { top: '-15px', left: '50%', transform: 'translateX(-50%) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'superior-invertida' && { top: '-15px', left: '50%', transform: 'translateX(-50%) rotate(180deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'inferior' && { bottom: '-15px', left: '50%', transform: 'translateX(-50%) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'inferior-invertida' && { bottom: '-15px', left: '50%', transform: 'translateX(-50%) rotate(180deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'derecha'  && { left: '-15px', top: '50%', transform: 'translateY(-50%) rotate(-90deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'izquierda' && { right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'derecha-invertida' && { left: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'izquierda-invertida' && { right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(-90deg) scaleY(1.5) scaleX(2.5)' }),
                                         }}
                                     >
                                         ↓
@@ -507,8 +523,9 @@ export default function MastergramaLienzoLibre() {
                                                     onMouseDown={(e) => e.stopPropagation()}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        // Alternamos la ubicación de la flecha
-                                                        const siguientePos = (pista.direction === 'superior') ? 'inferior' : 'superior';
+                                                        const posiciones = ['superior', 'superior-invertida', 'inferior', 'inferior-invertida','izquierda', 'izquierda-invertida','derecha', 'derecha-invertida'];
+                                                        const actualIdx = posiciones.indexOf(pista.direction || 'inferior');
+                                                        const siguientePos = posiciones[(actualIdx + 1) % posiciones.length];
                                                         updatePistaDirecta(pista.id, { direction: siguientePos });
                                                     }}
                                                     className="bg-blue-500 text-white w-7 h-7 rounded flex items-center justify-center text-xs font-bold shadow-sm active:scale-95 transition-transform"
