@@ -3,17 +3,16 @@ import React, { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import diseñoBase from "@/components/Crucigrama/mi-mastergrama.json";
 
 export default function MastergramaLienzoLibre() {
+
     const [archivosDisponibles, setArchivosDisponibles] = useState([]);
     const [archivoSeleccionado, setArchivoSeleccionado] = useState("");
     const [masterDataDinamico, setMasterDataDinamico] = useState([]);
-
     const ROWS = 24;
     const COLS = 20;
     const CELL_SIZE = 50;
     const SNAP_SIZE = 10;
     const BOARD_WIDTH = COLS * CELL_SIZE;
     const BOARD_HEIGHT = ROWS * CELL_SIZE;
-
     const [pistasColocadas, setPistasColocadas] = useState([]);
     const [historial, setHistorial] = useState([]);
     const [activeId, setActiveId] = useState(null);
@@ -21,10 +20,8 @@ export default function MastergramaLienzoLibre() {
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [isGameMode, setIsGameMode] = useState(false);
     const [respuestas, setRespuestas] = useState({});
-
     const importFileRef = useRef(null);
     const [pistaIdParaImagen, setPistaIdParaImagen] = useState(null);
-
     const TIPOS_FLECHA = ["→", "↓", "↘", "↴", "↳", "➔", "↔", "↕"];
     const FLECHAS_PEQUENAS = ["→", "↓", "←", "↑", "↗", "↘", "↙", "↖"];
 
@@ -66,10 +63,9 @@ export default function MastergramaLienzoLibre() {
 
 useEffect(() => {
     if (pistasColocadas.length > 0) {
-        // Creamos una copia para guardar, pero quitamos las imágenes pesadas
         const datosParaGuardar = pistasColocadas.map(p => {
             if (p.type === 'imagen_vacia' && p.src?.startsWith('data:image')) {
-                return { ...p, src: null }; // No guardamos el Base64
+                return { ...p, src: null };
             }
             return p;
         });
