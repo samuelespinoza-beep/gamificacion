@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import diseñoBase from "@/components/Crucigrama/mi-mastergrama.json";
 
 export default function MastergramaVistaJugador() {
-    const ROWS = 24;
+    const S3_URL = "https://files.comercial.larepublica.pe/anuncios/prod/27.json";
+    const ROWS = 18;
     const COLS = 20;
     const CELL_SIZE = 50;
     const BOARD_WIDTH = COLS * CELL_SIZE;
@@ -13,24 +13,36 @@ export default function MastergramaVistaJugador() {
     const [respuestasUsuario, setRespuestasUsuario] = useState({});
     const [solucionMaestra, setSolucionMaestra] = useState({});
     const [hasMounted, setHasMounted] = useState(false);
-
+    const [loading, setLoading] = useState(true);
     // --- NUEVOS ESTADOS PARA GAMIFICACIÓN ---
     const [juegoIniciado, setJuegoIniciado] = useState(false);
     const [tiempo, setTiempo] = useState(0);
 
     useEffect(() => {
         setHasMounted(true);
-        if (diseñoBase.diseno) {
-            setPistasColocadas(diseñoBase.diseno);
-            setSolucionMaestra(diseñoBase.respuestas || {});
-        } else {
-            setPistasColocadas(diseñoBase || []);
-        }
+
+        const cargarDatos = async () => {
+            try {
+                const res = await fetch(S3_URL);
+                const data = await res.json();
+
+                if (data.diseno) {
+                    setPistasColocadas(data.diseno);
+                    setSolucionMaestra(data.respuestas || {});
+                } else {
+                    setPistasColocadas(data || []);
+                }
+            } catch (error) {
+                console.error("Error cargando el Mastergrama:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        cargarDatos();
 
         const guardado = localStorage.getItem("mastergrama_respuestas_jugador");
-        if (guardado) {
-            setRespuestasUsuario(JSON.parse(guardado));
-        }
+        if (guardado) setRespuestasUsuario(JSON.parse(guardado));
     }, []);
 
     // Lógica del Cronómetro
@@ -72,17 +84,24 @@ export default function MastergramaVistaJugador() {
         if (nextInput) nextInput.focus();
     };
 
-    if (!hasMounted) return null;
+    // Reemplaza tu actual "if (!hasMounted) return null;" por esto:
+    if (!hasMounted || loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-100">
+                <p className="text-indigo-600 font-black animate-pulse">CARGANDO TABLERO...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-slate-100 p-8 flex flex-col items-center font-sans select-none overflow-auto">
-            
+
             {/* ENCABEZADO CON CRONÓMETRO */}
             <div className="w-full max-w-4xl flex justify-between items-end mb-8 border-b-4 border-slate-800 pb-2">
                 <h1 className="text-4xl font-black text-slate-800 uppercase italic tracking-tighter">
                     Mastergrama
                 </h1>
-                
+
                 <div className="flex flex-col items-end">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tiempo de Juego</span>
                     <span className="text-3xl font-mono font-black text-indigo-600 bg-white px-4 py-1 rounded-lg border-2 border-slate-800 shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]">
@@ -92,11 +111,11 @@ export default function MastergramaVistaJugador() {
             </div>
 
             <div className="flex flex-col items-center no-select-area relative">
-                
+
                 {/* OVERLAY DE "EMPEZAR A JUGAR" */}
                 {!juegoIniciado && (
                     <div className="absolute inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm rounded-sm transition-all">
-                        <button 
+                        <button
                             onClick={() => setJuegoIniciado(true)}
                             className="group relative px-12 py-6 bg-indigo-600 text-white text-2xl font-black uppercase italic rounded-xl shadow-[8px_8px_0px_0px_rgba(30,41,59,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                         >
@@ -162,9 +181,9 @@ export default function MastergramaVistaJugador() {
                             ${pista.type === 'pista' ? 'pointer-events-auto cursor-help' : 'pointer-events-none'} 
                             ${pista.type === 'flecha' || pista.type === 'flecha_pista' || pista.type === 'pared' ? 'bg-transparent border-transparent' : 'border border-slate-400 bg-white shadow-sm'}`}
                             style={{
-                                left: pista.x, 
-                                top: pista.y, 
-                                width: pista.w, 
+                                left: pista.x,
+                                top: pista.y,
+                                width: pista.w,
                                 height: pista.h,
                                 transform: pista.type === 'pared' ? 'none' : `rotate(${pista.rotate}deg)`,
                                 zIndex: 50
@@ -194,7 +213,7 @@ export default function MastergramaVistaJugador() {
                                             ...(pista.direction === 'superior-invertida' && { top: '-15px', left: '50%', transform: 'translateX(-50%) rotate(180deg) scaleY(1.5) scaleX(2.5)' }),
                                             ...(pista.direction === 'inferior' && { bottom: '-15px', left: '50%', transform: 'translateX(-50%) scaleY(1.5) scaleX(2.5)' }),
                                             ...(pista.direction === 'inferior-invertida' && { bottom: '-15px', left: '50%', transform: 'translateX(-50%) rotate(180deg) scaleY(1.5) scaleX(2.5)' }),
-                                            ...(pista.direction === 'derecha'  && { left: '-15px', top: '50%', transform: 'translateY(-50%) rotate(-90deg) scaleY(1.5) scaleX(2.5)' }),
+                                            ...(pista.direction === 'derecha' && { left: '-15px', top: '50%', transform: 'translateY(-50%) rotate(-90deg) scaleY(1.5) scaleX(2.5)' }),
                                             ...(pista.direction === 'izquierda' && { right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg) scaleY(1.5) scaleX(2.5)' }),
                                             ...(pista.direction === 'derecha-invertida' && { left: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg) scaleY(1.5) scaleX(2.5)' }),
                                             ...(pista.direction === 'izquierda-invertida' && { right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(-90deg) scaleY(1.5) scaleX(2.5)' }),
@@ -204,8 +223,8 @@ export default function MastergramaVistaJugador() {
                                     </div>
                                 </div>
                             ) : (
-                                <span 
-                                    className={`${pista.type === 'flecha_pista' ? 'text-black' : 'text-orange-500'} font-black flex items-center justify-center`} 
+                                <span
+                                    className={`${pista.type === 'flecha_pista' ? 'text-black' : 'text-orange-500'} font-black flex items-center justify-center`}
                                     style={{ fontSize: `${Math.min(pista.w, pista.h) * 0.9}px`, width: '100%', height: '100%' }}
                                 >
                                     {pista.text}
