@@ -7,7 +7,7 @@ export default function MastergramaLienzoLibre() {
     const [archivosDisponibles, setArchivosDisponibles] = useState([]);
     const [archivoSeleccionado, setArchivoSeleccionado] = useState("");
     const [masterDataDinamico, setMasterDataDinamico] = useState([]);
-    const ROWS = 24;
+    const ROWS = 18;
     const COLS = 20;
     const CELL_SIZE = 50;
     const SNAP_SIZE = 10;
