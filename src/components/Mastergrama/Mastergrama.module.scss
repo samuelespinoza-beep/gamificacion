@@ -1,0 +1,447 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Gochi+Hand&family=Nanum+Pen+Script&display=swap');
+$g-font: 'Arial', sans-serif;
+$g-ease: ease-in-out;
+$mg-indigo: #4f46e5;
+$mg-indigo-dark: #3730a3;
+$mg-indigo-light: #e0e7ff;
+$mg-slate-800: #1e293b;
+$mg-slate-600: #475569;
+$mg-slate-400: #94a3b8;
+$mg-slate-100: #f1f5f9;
+$mg-slate-200: #e2e8f0;
+$mg-white: #ffffff;
+$mg-yellow-focus: rgba(254, 252, 191, 0.5);
+$mg-green-ok: rgba(187, 247, 208, 0.6);
+$mg-red-err: rgba(254, 202, 202, 0.6);
+$mg-grid-line: #6c6e72;
+$mg-overlay: rgba(15, 23, 42, 0.4);
+
+.loading {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $mg-slate-100;
+}
+
+
+.loading__text {
+    color: $mg-indigo;
+    font-weight: 900;
+    font-family: $g-font;
+    animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.mastergrama {
+    min-height: 100vh;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    font-family: $g-font;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    overflow: auto;
+
+    &--light {
+        background-color: #FFFFFF;
+    }
+
+    &--dark {
+        background-color: #121215;
+    }
+}
+
+.header {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    border-bottom: 4px solid $mg-slate-800;
+    padding-bottom: 8px;
+}
+
+.header__title {
+    font-size: 2.25rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: -0.04em;
+    margin: 0;
+    line-height: 1;
+
+    &--light {
+        color: black;
+    }
+
+    &--dark {
+        color: white;
+    }
+}
+
+.header__timer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.header__timerLabel {
+    font-size: 10px;
+    font-weight: 700;
+    color: $mg-slate-400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.header__timerValue {
+    font-size: 1.875rem;
+    font-family: ui-monospace, 'Courier New', monospace;
+    font-weight: 900;
+    color: $mg-indigo;
+    background: $mg-white;
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: 2px solid $mg-slate-800;
+    box-shadow: 4px 4px 0px 0px $mg-slate-800;
+}
+
+.boardWrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 20px 0 0 0;
+}
+
+.boardFrame {
+    position: relative;
+    background: $mg-white;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    padding: 0px 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $mg-overlay;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 2px;
+    transition: opacity 0.25s $g-ease;
+}
+
+.overlay__btn {
+    position: relative;
+    padding: 24px 48px;
+    background: $mg-indigo;
+    color: $mg-white;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    font-family: inherit;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 8px 8px 0px 0px $mg-slate-800;
+    transition: transform 0.12s $g-ease, box-shadow 0.12s $g-ease;
+
+    &:hover {
+        transform: translate(2px, 2px);
+        box-shadow: none;
+    }
+
+    &:active {
+        transform: translate(4px, 4px);
+    }
+}
+
+.board {
+    position: relative;
+}
+
+.cell {
+    position: absolute;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    outline: none;
+    background: transparent;
+    border: none;
+    color: #1e3a8a;
+    z-index: 10;
+    transition: background-color 0.15s $g-ease;
+    font-family: 'Gloria Hallelujah', cursive;
+
+    &:focus {
+        background-color: $mg-yellow-focus;
+    }
+
+    &--disabled {
+        cursor: not-allowed;
+    }
+
+    &--correct {
+        background-color: $mg-green-ok;
+    }
+
+    &--wrong {
+        background-color: $mg-red-err;
+    }
+
+    &--focus {
+        background-color: $mg-yellow-focus !important; // Celda donde escribes
+        outline: 2px solid $mg-indigo;
+        z-index: 20;
+    }
+
+    &--highlighted {
+        background-color: rgba(79, 70, 229, 0.15) !important; // Celda que recibirá el siguiente carácter
+        border: 1px dashed $mg-indigo; // Un borde punteado queda genial aquí
+    }
+
+}
+
+.directionIndicator {
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5; // Un poco por debajo del texto para que no lo tape
+
+    &__icon {
+        width: 70%;
+        height: 70%;
+        // Usamos un color que contraste pero sea suave
+        color: rgba(79, 70, 229, 0.25);
+        transition: transform 0.2s ease-in-out;
+
+        // Si quieres que la flecha "flote" un poco
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    }
+}
+
+.pistaBase {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pista {
+    border: 1px solid $mg-slate-400;
+    background: $mg-white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: help;
+}
+
+.pistaInner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    position: relative;
+}
+
+.pistaText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: #000;
+    font-size: 6px;
+    text-transform: uppercase;
+    line-height: 1;
+    text-align: center;
+    word-break: break-word;
+    font-family: inherit;
+}
+
+.pistaArrow {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+    color: transparent; // Oculta el texto original ↓
+
+    &::after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-right: 2.2px solid #0f172a;
+        border-bottom: 2.2px solid #0f172a;
+        transform: rotate(45deg); // Ángulo base de la punta
+    }
+
+    /* Variantes de dirección con el estiramiento que buscabas */
+    &--superior {
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%) rotate(225deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--superior-invertida {
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--inferior {
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--inferior-invertida {
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%) rotate(225deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--derecha {
+        left: -15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--izquierda {
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(135deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--derecha-invertida {
+        left: -15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(135deg) scaleX(3.5) scaleY(1.2);
+    }
+
+    &--izquierda-invertida {
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg) scaleX(3.5) scaleY(1.2);
+    }
+}
+
+.imagenVacia {
+    overflow: hidden;
+    border: 1px solid $mg-slate-400;
+    background: $mg-white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+.flecha {
+    pointer-events: none;
+    border: none;
+    background: transparent;
+
+    &__icon {
+        color: #f97316;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &--pista &__icon {
+        color: #000;
+    }
+}
+
+.pared {
+    pointer-events: none;
+    border: none;
+    background: transparent;
+
+    &__fill {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 48px;
+}
+
+.actions__reset {
+    padding: 8px 24px;
+    background: $mg-white;
+    color: $mg-slate-600;
+    border: 1px solid $mg-slate-200;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 10px;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.18s $g-ease;
+
+    &:hover {
+        background: #fef2f2;
+    }
+}
+
+.actions__solution {
+    padding: 8px 24px;
+    background: $mg-indigo;
+    color: $mg-white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 10px;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+    transition: background 0.18s $g-ease, box-shadow 0.18s $g-ease;
+
+    &:hover {
+        background: $mg-indigo-dark;
+        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+    }
+}
