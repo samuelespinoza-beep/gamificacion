@@ -211,14 +211,14 @@ $mg-overlay: rgba(15, 23, 42, 0.4);
     }
 
     &--focus {
-        background-color: $mg-yellow-focus !important; // Celda donde escribes
+        background-color: $mg-yellow-focus !important;
         outline: 2px solid $mg-indigo;
         z-index: 20;
     }
 
     &--highlighted {
-        background-color: rgba(79, 70, 229, 0.15) !important; // Celda que recibirá el siguiente carácter
-        border: 1px dashed $mg-indigo; // Un borde punteado queda genial aquí
+        background-color: rgba(79, 70, 229, 0.15) !important;
+        border: 1px dashed $mg-indigo;
     }
 
 }
@@ -229,16 +229,13 @@ $mg-overlay: rgba(15, 23, 42, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5; // Un poco por debajo del texto para que no lo tape
+    z-index: 5;
 
     &__icon {
         width: 70%;
         height: 70%;
-        // Usamos un color que contraste pero sea suave
         color: rgba(79, 70, 229, 0.25);
         transition: transform 0.2s ease-in-out;
-
-        // Si quieres que la flecha "flote" un poco
         filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
     }
 }
@@ -285,71 +282,64 @@ $mg-overlay: rgba(15, 23, 42, 0.4);
 
 .pistaArrow {
     position: absolute;
-    width: 25px;
-    height: 25px;
+    color: #0f172a;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
+    user-select: none;
     z-index: 60;
-    color: transparent; // Oculta el texto original ↓
+    transform-origin: center;
 
-    &::after {
-        content: '';
-        display: block;
-        width: 6px;
-        height: 6px;
-        border-right: 2.2px solid #0f172a;
-        border-bottom: 2.2px solid #0f172a;
-        transform: rotate(45deg); // Ángulo base de la punta
-    }
-
-    /* Variantes de dirección con el estiramiento que buscabas */
     &--superior {
-        top: -18px;
+        top: -15px;
         left: 50%;
-        transform: translateX(-50%) rotate(225deg) scaleX(3.5) scaleY(1.2);
+        transform: translateX(-50%) scaleY(1.0) scaleX(2.5);
     }
 
     &--superior-invertida {
-        top: -25px;
+        top: -15px;
         left: 50%;
-        transform: translateX(-50%) rotate(45deg) scaleX(3.5) scaleY(1.2);
+        transform: translateX(-50%) rotate(180deg) scaleY(1.0) scaleX(2.5);
     }
 
     &--inferior {
         bottom: -15px;
         left: 50%;
-        transform: translateX(-50%) rotate(45deg) scaleX(3.5) scaleY(1.2);
+        transform: translateX(-50%) scaleY(1.0) scaleX(2.5);
     }
 
     &--inferior-invertida {
         bottom: -15px;
         left: 50%;
-        transform: translateX(-50%) rotate(225deg) scaleX(3.5) scaleY(1.2);
+        transform: translateX(-50%) rotate(180deg) scaleY(1.0) scaleX(2.5);
     }
 
     &--derecha {
         left: -15px;
         top: 50%;
-        transform: translateY(-50%) rotate(-45deg) scaleX(3.5) scaleY(1.2);
+        transform: translateY(-50%) rotate(-90deg) scaleY(1.0) scaleX(2.5);
     }
 
     &--izquierda {
         right: -15px;
         top: 50%;
-        transform: translateY(-50%) rotate(135deg) scaleX(3.5) scaleY(1.2);
+        transform: translateY(-50%) rotate(90deg) scaleY(1.0) scaleX(2.5);
     }
 
     &--derecha-invertida {
         left: -15px;
         top: 50%;
-        transform: translateY(-50%) rotate(135deg) scaleX(3.5) scaleY(1.2);
+        transform: translateY(-50%) rotate(90deg) scaleY(1.0) scaleX(2.5);
     }
 
     &--izquierda-invertida {
         right: -15px;
         top: 50%;
-        transform: translateY(-50%) rotate(-45deg) scaleX(3.5) scaleY(1.2);
+        transform: translateY(-50%) rotate(-90deg) scaleY(1.0) scaleX(2.5);
     }
 }
 
@@ -443,5 +433,81 @@ $mg-overlay: rgba(15, 23, 42, 0.4);
     &:hover {
         background: $mg-indigo-dark;
         box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+    }
+}
+
+.datePicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+
+    label {
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    &__input {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: inherit;
+        cursor: pointer;
+        
+        &:hover {
+            border-color: #888;
+        }
+    }
+}
+
+.errorContainer {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    min-height: 300px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $mg-white;
+    border: 2px solid $mg-slate-800;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0px 0px $mg-slate-800;
+}
+
+.errorBox {
+    text-align: center;
+    padding: 20px;
+
+    .errorIcon { 
+        font-size: 3rem; 
+        display: block; 
+        margin-bottom: 16px; 
+    }
+
+    .errorText { 
+        margin-bottom: 24px; 
+        font-weight: 900; 
+        color: $mg-slate-800;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+
+    .errorButton { 
+        padding: 12px 24px; 
+        background: $mg-indigo; 
+        color: white; 
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-family: inherit;
+        box-shadow: 4px 4px 0px 0px $mg-slate-800;
+        transition: transform 0.1s ease;
+
+        &:hover {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
     }
 }

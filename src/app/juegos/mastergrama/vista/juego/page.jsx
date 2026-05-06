@@ -1,15 +1,11 @@
 "use client";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import styles from "@/components/Mastergrama/Mastergrama.module.scss";
-const S3_URL = "https://files.comercial.larepublica.pe/anuncios/prod/26.json";
-const ROWS = 18;
-const COLS = 20;
+
 const CELL_SIZE = 50;
-const BOARD_WIDTH = COLS * CELL_SIZE;
-const BOARD_HEIGHT = ROWS * CELL_SIZE;
+let ROWS;
+let COLS;
 
-
-// AGREGAR AQUÍ:
 const INDICADOR_FLECHA = {
     H: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -57,8 +53,8 @@ const Cell = memo(({ r, c, letra, correcta, juegoIniciado, onNav, onChange, isHi
         !juegoIniciado && styles["cell--disabled"],
         letra !== "" && letra === correcta && styles["cell--correct"],
         letra !== "" && letra !== correcta && styles["cell--wrong"],
-        isActive && styles["cell--focus"],           // <--- Línea nueva
-        isHighlighted && styles["cell--highlighted"], // <--- Línea nueva
+        isActive && styles["cell--focus"],
+        isHighlighted && styles["cell--highlighted"],
     ].filter(Boolean).join(" ");
 
     return (
@@ -66,18 +62,16 @@ const Cell = memo(({ r, c, letra, correcta, juegoIniciado, onNav, onChange, isHi
             data-pos={`${r}-${c}`}
             disabled={!juegoIniciado}
             className={cellClass}
-            style={{
-                left: c * CELL_SIZE,
-                top: r * CELL_SIZE,
-                width: CELL_SIZE,
-                height: CELL_SIZE,
-            }}
+            style={{ left: c * CELL_SIZE, top: r * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE, }}
             maxLength={1}
             value={letra}
+            type="text"
+            inputMode="text"
+            pattern="[a-zA-ZñÑ]*"
             onKeyDown={(e) => onNav(e, r, c)}
             onChange={(e) => onChange(e.target.value.toUpperCase(), r, c)}
-            onClick={onClick}  // <--- Línea nueva
-            onFocus={onClick}  // <--- Línea nueva (para soporte de teclado)
+            onClick={onClick}
+            onFocus={onClick}
         />
     );
 });
@@ -158,11 +152,16 @@ const PistasLayer = memo(({ pistasColocadas }) => {
 
                 if (pista.type === "pista") {
                     return (
-                        <div key={pista.id} title={pista.text} className={`${styles.pistaBase} ${styles.pista}`} style={{ ...baseStyle, transform: `rotate(${pista.rotate}deg)` }}>
+                        <div key={pista.id} className={`${styles.pistaBase} ${styles.pista}`} style={{ ...baseStyle, transform: `rotate(${pista.rotate}deg)` }}>
                             <div className={styles.pistaInner}>
-                                <span className={styles.pistaText}>{pista.text}</span>
+                                <span className={styles.pistaText}>
+                                    {pista.text}
+                                </span>
+
                                 {pista.direction && (
-                                    <div className={[styles.pistaArrow, styles[`pistaArrow--${pista.direction}`]].filter(Boolean).join(" ")}>↓</div>
+                                    <div className={`${styles.pistaArrow} ${styles[`pistaArrow--${pista.direction}`]}`}>
+                                        ↓
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -194,52 +193,90 @@ const Mastergrama = ({ isBlack }) => {
     const [loading, setLoading] = useState(true);
     const [juegoIniciado, setJuegoIniciado] = useState(false);
     const [resetKey, setResetKey] = useState(0);
-    const [celdaActiva, setCeldaActiva] = useState(null); // {r, c}
-    const [direccion, setDireccion] = useState("H"); // "H" o "V"
+    const [celdaActiva, setCeldaActiva] = useState(null);
+    const [direccion, setDireccion] = useState("H");
+    const [rows, setRows] = useState(0);
+    const [cols, setCols] = useState(0);
+    const BOARD_WIDTH = cols * CELL_SIZE;
+    const BOARD_HEIGHT = rows * CELL_SIZE;
+    const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date().toLocaleDateString('en-CA'));
+    const [error, setError] = useState(null);
+
+    const cargarMastergrama = useCallback(async (fecha) => {
+        try {
+            setLoading(true);
+            setError(null); // IMPORTANTÍSIMO: Limpiar error previo
+            setJuegoIniciado(false);
+
+            const cacheKey = `mastergrama_${fecha}`;
+            const cachedData = sessionStorage.getItem(cacheKey);
+            let data;
+
+            if (cachedData) {
+                data = JSON.parse(cachedData);
+            } else {
+                const resGQL = await fetch("/api/proxy", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        url: "http://cronosprintedapi.glr.test/graphql",
+                        body: {
+                            query: `query GetToday($date: String) { 
+                            mastergrama(date: $date) { mastergrama_json } 
+                        }`,
+                            variables: { date: fecha }
+                        }
+                    })
+                });
+
+                const resultGQL = await resGQL.json();
+                const rutaJson = resultGQL.data?.mastergrama[0]?.mastergrama_json;
+
+                // Si la rutaJson no existe, lanzamos el error manualmente para ir al catch
+                if (!rutaJson) {
+                    throw new Error("No hay un Mastergrama disponible para esta fecha.");
+                }
+
+                const resFile = await fetch("/api/proxy", {
+                    method: "POST",
+                    body: JSON.stringify({ url: rutaJson, method: 'GET' })
+                });
+
+                data = await resFile.json();
+                sessionStorage.setItem(cacheKey, JSON.stringify(data));
+            }
+
+            if (data) {
+                setPistasColocadas(data.diseno || []);
+                setSolucionMaestra(data.respuestas || {});
+                setRows(data.rows || 18);
+                setCols(data.cols || 20);
+                setRespuestasUsuario({});
+                setResetKey(prev => prev + 1);
+            }
+        } catch (err) {
+            console.error("Error cargando Mastergrama:", err);
+            setError(err.message); // Guardamos el mensaje para el popup
+
+            // LIMPIEZA CRÍTICA: Si hay error, vaciamos el tablero anterior
+            setPistasColocadas([]);
+            setSolucionMaestra({});
+            setRows(0);
+            setCols(0);
+            setRespuestasUsuario({});
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
         setHasMounted(true);
-
-        const cargarDatos = async () => {
-            try {
-                // Revisamos si ya tenemos el JSON guardado
-                const cachedData = sessionStorage.getItem("mastergrama_api_cache");
-                let data;
-
-                if (cachedData) {
-                    data = JSON.parse(cachedData);
-                } else {
-                    // Si no hay caché, pedimos a la API y guardamos
-                    const res = await fetch(S3_URL);
-                    data = await res.json();
-                    sessionStorage.setItem("mastergrama_api_cache", JSON.stringify(data));
-                }
-
-                if (data.diseno) {
-                    setPistasColocadas(data.diseno);
-                    setSolucionMaestra(data.respuestas || {});
-                } else {
-                    setPistasColocadas(data || []);
-                }
-            } catch (error) {
-                console.error("Error cargando el Mastergrama:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        cargarDatos();
-
-        const guardado = localStorage.getItem("mastergrama_respuestas_jugador");
-        if (guardado) setRespuestasUsuario(JSON.parse(guardado));
-    }, []);
+        cargarMastergrama(fechaSeleccionada);
+    }, [fechaSeleccionada, cargarMastergrama]);
 
     const estaEnEje = useCallback((r, c) => {
-        // Ya no pintamos ninguna celda extra, la flecha se encarga de la dirección
         return false;
     }, []);
 
-    // Función que maneja el cambio de dirección al hacer clic
     const manejarClickCelda = useCallback((r, c) => {
         if (!juegoIniciado) return;
         if (celdaActiva?.r === r && celdaActiva?.c === c) {
@@ -251,7 +288,6 @@ const Mastergrama = ({ isBlack }) => {
 
     useEffect(() => {
         if (hasMounted) {
-            // Debounce para no saturar el main thread en cada tecla
             const timeoutId = setTimeout(() => {
                 localStorage.setItem(
                     "mastergrama_respuestas_jugador",
@@ -279,14 +315,16 @@ const Mastergrama = ({ isBlack }) => {
     }, [juegoIniciado]);
 
     const handleCellChange = useCallback((val, r, c) => {
-        const key = `${r}-${c}`;
-        setRespuestasUsuario((prev) => ({ ...prev, [key]: val }));
+        const soloLetras = val.toUpperCase().replace(/[^A-ZÑ]/g, "");
 
-        if (val !== "") {
+        if (val !== "" && soloLetras === "") return;
+
+        const key = `${r}-${c}`;
+        setRespuestasUsuario((prev) => ({ ...prev, [key]: soloLetras }));
+
+        if (soloLetras !== "") {
             let nR = r, nC = c;
 
-            // Si la dirección es Horizontal (H), aumenta columna. 
-            // Si es Vertical (V), aumenta fila.
             if (direccion === "H") {
                 nC++;
             } else {
@@ -314,7 +352,23 @@ const Mastergrama = ({ isBlack }) => {
 
             {/* ENCABEZADO */}
             <div className={styles.header}>
-                <h1 className={`${styles.header__title} ${isBlack ? styles["header__title--dark"] : styles["header__title--light"]}`}>Mastergrama</h1>
+                <div className={styles.header__left}>
+                    <h1 className={styles.header__title}>Mastergrama</h1>
+
+                    {/* SELECTOR DE FECHA */}
+                    <div className={styles.datePicker}>
+                        <label htmlFor="fecha-mastergrama">Fecha:</label>
+                        <input
+                            type="date"
+                            id="fecha-mastergrama"
+                            value={fechaSeleccionada}
+                            max={new Date().toLocaleDateString('en-CA')} // No permite fechas futuras
+                            onChange={(e) => setFechaSeleccionada(e.target.value)}
+                            className={styles.datePicker__input}
+                        />
+                    </div>
+                </div>
+
                 <div className={styles.header__timer}>
                     <span className={styles.header__timerLabel}>Tiempo de Juego</span>
                     <Timer juegoIniciado={juegoIniciado} resetKey={resetKey} />
@@ -323,77 +377,92 @@ const Mastergrama = ({ isBlack }) => {
 
             {/* Área principal del juego */}
             <div className={styles.boardWrapper}>
-                <div className={styles.boardFrame}>
-
-                    {/* OVERLAY DE INICIO */}
-                    {!juegoIniciado && (
-                        <div className={styles.overlay}>
+                {/* SI HAY UN ERROR: Mostramos el aviso directamente en lugar del frame del tablero */}
+                {error ? (
+                    <div className={styles.errorContainer}>
+                        <div className={styles.errorBox}>
+                            <span className={styles.errorIcon}>📅</span>
+                            <p className={styles.errorText}>{error}</p>
                             <button
-                                onClick={() => setJuegoIniciado(true)}
-                                className={styles.overlay__btn}
+                                className={styles.errorButton}
+                                onClick={() => setFechaSeleccionada(new Date().toLocaleDateString('en-CA'))}
                             >
-                                🚀 Empezar a Jugar
+                                Volver a Hoy
                             </button>
                         </div>
-                    )}
+                    </div>
+                ) : (
+                    /* SI NO HAY ERROR: Renderizamos el tablero normal */
+                    <div className={styles.boardFrame}>
 
-                    {/* TABLERO */}
-                    <div
-                        className={styles.board}
-                        style={{
-                            width: BOARD_WIDTH,
-                            height: BOARD_HEIGHT,
-                            backgroundImage: `linear-gradient(#6c6e72ff 1px, transparent 1px), linear-gradient(90deg, #6c6e72ff 1px, transparent 1px)`,
-                            backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
-                        }}
-                    >
-                        {/* CAPA 1: INPUTS */}
-                        {Array.from({ length: ROWS * COLS }).map((_, i) => {
-                            const r = Math.floor(i / COLS);
-                            const c = i % COLS;
-                            const key = `${r}-${c}`;
-                            const letra = respuestasUsuario[key] || "";
-                            const correcta = solucionMaestra[key];
-
-                            return (
-                                <Cell
-                                    key={i}
-                                    r={r}
-                                    c={c}
-                                    letra={letra}
-                                    correcta={correcta}
-                                    juegoIniciado={juegoIniciado}
-                                    onNav={manejarNavegacion}
-                                    onChange={handleCellChange}
-                                    // --- NUEVAS LÍNEAS AÑADIDAS ---
-                                    isHighlighted={estaEnEje(r, c)}
-                                    isActive={celdaActiva?.r === r && celdaActiva?.c === c}
-                                    onClick={() => manejarClickCelda(r, c)}
-                                // ------------------------------
-                                />
-                            );
-                        })}
-
-                        {celdaActiva && (
-                            <div
-                                className={styles.directionIndicator}
-                                style={{
-                                    left: celdaActiva.c * CELL_SIZE,
-                                    top: celdaActiva.r * CELL_SIZE,
-                                    width: CELL_SIZE,
-                                    height: CELL_SIZE,
-                                }}
-                            >
-                                <div className={styles.directionIndicator__icon}>
-                                    {INDICADOR_FLECHA[direccion]}
-                                </div>
+                        {/* OVERLAY DE INICIO */}
+                        {!juegoIniciado && (
+                            <div className={styles.overlay}>
+                                <button
+                                    onClick={() => setJuegoIniciado(true)}
+                                    className={styles.overlay__btn}
+                                >
+                                    🚀 Empezar a Jugar
+                                </button>
                             </div>
                         )}
 
-                        {/* CAPA 2: PISTAS Y FLECHAS */}
-                        <PistasLayer pistasColocadas={pistasColocadas} />
+                        {/* TABLERO */}
+                        <div
+                            className={styles.board}
+                            style={{
+                                width: BOARD_WIDTH,
+                                height: BOARD_HEIGHT,
+                                backgroundImage: `linear-gradient(#6c6e72ff 1px, transparent 1px), linear-gradient(90deg, #6c6e72ff 1px, transparent 1px)`,
+                                backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
+                            }}
+                        >
+                            {/* CAPA 1: INPUTS */}
+                            {Array.from({ length: rows * cols }).map((_, i) => {
+                                const r = Math.floor(i / cols);
+                                const c = i % cols;
+                                const key = `${r}-${c}`;
+                                const letra = respuestasUsuario[key] || "";
+                                const correcta = solucionMaestra[key];
+
+                                return (
+                                    <Cell
+                                        key={i}
+                                        r={r}
+                                        c={c}
+                                        letra={letra}
+                                        correcta={correcta}
+                                        juegoIniciado={juegoIniciado}
+                                        onNav={manejarNavegacion}
+                                        onChange={handleCellChange}
+                                        isHighlighted={estaEnEje(r, c)}
+                                        isActive={celdaActiva?.r === r && celdaActiva?.c === c}
+                                        onClick={() => manejarClickCelda(r, c)}
+                                    />
+                                );
+                            })}
+
+                            {celdaActiva && (
+                                <div
+                                    className={styles.directionIndicator}
+                                    style={{
+                                        left: celdaActiva.c * CELL_SIZE,
+                                        top: celdaActiva.r * CELL_SIZE,
+                                        width: CELL_SIZE,
+                                        height: CELL_SIZE,
+                                    }}
+                                >
+                                    <div className={styles.directionIndicator__icon}>
+                                        {INDICADOR_FLECHA[direccion]}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* CAPA 2: PISTAS Y FLECHAS */}
+                            <PistasLayer pistasColocadas={pistasColocadas} />
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {/* BOTONES */}
