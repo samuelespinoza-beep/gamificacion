@@ -152,7 +152,7 @@ const PistasLayer = memo(({ pistasColocadas }) => {
 
                 if (pista.type === "pista") {
                     return (
-                        <div key={pista.id} className={`${styles.pistaBase} ${styles.pista}`} style={{ ...baseStyle, transform: `rotate(${pista.rotate}deg)` }}>
+                        <div key={pista.id} className={`${styles.pistaBase} ${styles.pista}`} style={{ ...baseStyle, transform: `rotate(${pista.rotate}deg)` }} title={pista.text}>
                             <div className={styles.pistaInner}>
                                 <span className={styles.pistaText}>
                                     {pista.text}
@@ -218,7 +218,7 @@ const Mastergrama = ({ isBlack }) => {
                 const resGQL = await fetch("/api/proxy", {
                     method: "POST",
                     body: JSON.stringify({
-                        url: "http://cronosprintedapi.glr.test/graphql",
+                        url: "https://qacronosprintedapi.glr.pe/graphql",
                         body: {
                             query: `query GetToday($date: String) { 
                             mastergrama(date: $date) { mastergrama_json } 
@@ -381,7 +381,6 @@ const Mastergrama = ({ isBlack }) => {
                 {error ? (
                     <div className={styles.errorContainer}>
                         <div className={styles.errorBox}>
-                            <span className={styles.errorIcon}>📅</span>
                             <p className={styles.errorText}>{error}</p>
                             <button
                                 className={styles.errorButton}
