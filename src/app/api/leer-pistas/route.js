@@ -4,9 +4,15 @@ import path from 'path';
 
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
-    const archivo = searchParams.get('archivo');
+    const edicion = searchParams.get('edicion') || searchParams.get('archivo');
+    
+    if (!edicion) {
+        return NextResponse.json({ error: "Falta el parámetro edicion" }, { status: 400 });
+    }
+
+    const nombreArchivo = edicion.endsWith('.json') ? edicion : `${edicion}.json`;
     const dirHistorias = path.join(process.cwd(), 'src', 'components', 'Crucigrama', 'stories-mastergrama');
-    const filePath = path.join(dirHistorias, archivo);
+    const filePath = path.join(dirHistorias, nombreArchivo);
 
     try {
         if (!fs.existsSync(filePath)) {

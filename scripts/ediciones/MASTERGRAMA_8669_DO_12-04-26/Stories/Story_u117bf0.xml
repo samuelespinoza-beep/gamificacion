@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="17.0">
+	<Story Self="u117bf0" AppliedTOCStyle="n" UserText="true" IsEndnoteStory="false" TrackChanges="false" StoryTitle="$ID/autor_foto1" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 7.1-c000 79.b0f8be9, 2021/12/08-19:11:22        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <xmp:CreateDate>2024-01-22T16:05:14-05:00</xmp:CreateDate>
+         <xmp:MetadataDate>2024-01-22T16:05:14-05:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2024-01-22T16:05:14-05:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InCopy 7.0</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:54D384B869B9EE1193C0A2DD4FC18CD2</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:54D384B869B9EE1193C0A2DD4FC18CD2</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:54D384B869B9EE1193C0A2DD4FC18CD2</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:54D384B869B9EE1193C0A2DD4FC18CD2</stEvt:instanceID>
+                  <stEvt:when>2024-01-22T16:05:14-05:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign 7.0</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">autor_foto1</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/1.3.4_credito_foto">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Black" PointSize="12" Tracking="0" BaselineShift="0">
+				<Properties>
+					<Leading type="unit">6.7</Leading>
+				</Properties>
+				<Content>solución del día</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Medium" PointSize="12" Tracking="0" BaselineShift="0">
+				<Properties>
+					<Leading type="unit">6.7</Leading>
+				</Properties>
+				<Content> </Content>
+				<Polygon Self="u117c06" ContentType="Unassigned" StoryTitle="$ID/" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="" OverriddenPageItemProps="" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" FillColor="Color/Black" OverprintFill="true" CornerRadius="0.167" StrokeTint="-1" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" Visible="true" Name="$ID/" TopLeftCornerRadius="0.167" TopRightCornerRadius="0.167" BottomLeftCornerRadius="0.167" BottomRightCornerRadius="0.167" ItemTransform="1 0 0 1 -0.17531248927116394 -7.644624024629593">
+					<Properties>
+						<PathGeometry>
+							<GeometryPathType PathOpen="false">
+								<PathPointArray>
+									<PathPointType Anchor="3.9973911143397935 1.5634762290469055" LeftDirection="3.9973911143397935 1.5634762290469055" RightDirection="3.9973911143397935 1.5634762290469055" />
+									<PathPointType Anchor="6.277968671424838 3.8866412979008285" LeftDirection="6.277968671424838 3.8866412979008285" RightDirection="6.277968671424838 3.8866412979008285" />
+									<PathPointType Anchor="0.17531248927116394 3.8866412979008285" LeftDirection="0.17531248927116394 3.8866412979008285" RightDirection="0.17531248927116394 3.8866412979008285" />
+									<PathPointType Anchor="0.17531248927116394 5.321459396366519" LeftDirection="0.17531248927116394 5.321459396366519" RightDirection="0.17531248927116394 5.321459396366519" />
+									<PathPointType Anchor="6.277968671424838 5.321459396366519" LeftDirection="6.277968671424838 5.321459396366519" RightDirection="6.277968671424838 5.321459396366519" />
+									<PathPointType Anchor="3.9973911143397935 7.644624024629593" LeftDirection="3.9973911143397935 7.644624024629593" RightDirection="3.9973911143397935 7.644624024629593" />
+									<PathPointType Anchor="5.88731413469076 7.644624024629593" LeftDirection="5.88731413469076 7.644624024629593" RightDirection="5.88731413469076 7.644624024629593" />
+									<PathPointType Anchor="8.88586016550778 4.604710226347095" LeftDirection="8.88586016550778 4.604710226347095" RightDirection="8.88586016550778 4.604710226347095" />
+									<PathPointType Anchor="5.88731413469076 1.5634762290469055" LeftDirection="5.88731413469076 1.5634762290469055" RightDirection="5.88731413469076 1.5634762290469055" />
+								</PathPointArray>
+							</GeometryPathType>
+						</PathGeometry>
+					</Properties>
+					<AnchoredObjectSetting AnchorYoffset="2" />
+					<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+						<Properties>
+							<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+						</Properties>
+					</TextWrapPreference>
+					<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+					<ObjectExportOption EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing">
+						<Properties>
+							<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+							<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+						</Properties>
+					</ObjectExportOption>
+				</Polygon>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>
